@@ -1,30 +1,68 @@
 import os
-from langchain_groq import ChatGroq
-from langchain_core.prompts import PromptTemplate
-from langchain_core.output_parsers import JsonOutputParser
-from langchain_core.exceptions import OutputParserException
-from dotenv import load_dotenv
+import sys
+import json
 import logging
 
-# Load environment variables
-# Try to find .env file in current directory or parent directories
-current_dir = os.path.dirname(__file__)
-env_paths = [
-    os.path.join(current_dir, '.env'),
-    os.path.join(current_dir, '..', '.env'),
-    os.path.join(current_dir, '..', '..', '.env'),
-    os.path.join(current_dir, '..', '..', '..', 'streamlit-app', '.env')
-]
-
-for dotenv_path in env_paths:
-    if os.path.exists(dotenv_path):
-        load_dotenv(dotenv_path)
-        break
-else:
-    load_dotenv()  # Fallback to default behavior
-
-# Configure logging
+# Configure logging first
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+
+# Try to import required packages with error handling
+try:
+    from langchain_groq import ChatGroq
+    print("✅ langchain_groq imported successfully", file=sys.stderr)
+except ImportError as e:
+    error_msg = {
+        "success": False, 
+        "error": f"Import error: No module named 'langchain_groq'", 
+        "details": "Make sure all dependencies are installed and paths are correct", 
+        "python_path": sys.path, 
+        "current_dir": os.getcwd(), 
+        "script_dir": os.path.dirname(__file__),
+        "install_command": "pip install langchain-groq==0.1.5"
+    }
+    print(json.dumps(error_msg))
+    sys.exit(1)
+
+try:
+    from langchain_core.prompts import PromptTemplate
+    from langchain_core.output_parsers import JsonOutputParser
+    from langchain_core.exceptions import OutputParserException
+    print("✅ langchain_core modules imported successfully", file=sys.stderr)
+except ImportError as e:
+    error_msg = {
+        "success": False, 
+        "error": f"Import error: No module named 'langchain_core'", 
+        "details": "langchain-core package not found",
+        "install_command": "pip install langchain-core==0.1.52"
+    }
+    print(json.dumps(error_msg))
+    sys.exit(1)
+
+# Handle dotenv import gracefully
+try:
+    from dotenv import load_dotenv
+    dotenv_available = True
+except ImportError:
+    print("python-dotenv not available, using system environment variables", file=sys.stderr)
+    dotenv_available = False
+
+# Load environment variables
+if dotenv_available:
+    # Try to find .env file in current directory or parent directories
+    current_dir = os.path.dirname(__file__)
+    env_paths = [
+        os.path.join(current_dir, '.env'),
+        os.path.join(current_dir, '..', '.env'),
+        os.path.join(current_dir, '..', '..', '.env'),
+        os.path.join(current_dir, '..', '..', '..', 'streamlit-app', '.env')
+    ]
+
+    for dotenv_path in env_paths:
+        if os.path.exists(dotenv_path):
+            load_dotenv(dotenv_path)
+            break
+    else:
+        load_dotenv()  # Fallback to default behavior
 
 class Chain:
     def __init__(self):
