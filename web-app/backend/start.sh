@@ -32,8 +32,12 @@ echo "📦 Installing Python dependencies..."
 pip install --upgrade pip
 pip install -r requirements.txt || {
     echo "❌ Failed to install Python dependencies"
+    pip freeze
     exit 1
 }
+
+# ✅ Show installed packages for diagnostics
+pip freeze
 
 # ✅ Check if critical packages are available
 $PYTHON_CMD -c "
