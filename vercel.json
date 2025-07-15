@@ -1,6 +1,12 @@
 {
   "version": 2,
-  "buildCommand": "cd web-app/frontend && npm run build",
-  "outputDirectory": "web-app/frontend/build",
-  "installCommand": "cd web-app/frontend && npm install"
+  "builds": [
+    {
+      "src": "web-app/frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "build"
+      }
+    }
+  ]
 }
