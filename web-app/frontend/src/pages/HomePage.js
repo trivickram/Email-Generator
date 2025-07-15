@@ -39,6 +39,7 @@ const FeatureCard = ({ icon, title, description, delay }) => (
     initial={{ opacity: 0, y: 30 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.6, delay }}
+    style={{ height: '100%' }}
   >
     <Card sx={{
       background: 'rgba(255, 255, 255, 0.9)',
@@ -48,6 +49,9 @@ const FeatureCard = ({ icon, title, description, delay }) => (
       p: 3,
       textAlign: 'center',
       height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      minHeight: '200px',
       transition: 'all 0.3s ease',
       '&:hover': {
         transform: 'translateY(-8px)',
@@ -59,14 +63,15 @@ const FeatureCard = ({ icon, title, description, delay }) => (
         borderRadius: '16px',
         p: 2,
         display: 'inline-flex',
-        mb: 2
+        mb: 2,
+        alignSelf: 'center'
       }}>
         {icon}
       </Box>
       <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
         {title}
       </Typography>
-      <Typography variant="body2" color="text.secondary">
+      <Typography variant="body2" color="text.secondary" sx={{ flexGrow: 1 }}>
         {description}
       </Typography>
     </Card>
