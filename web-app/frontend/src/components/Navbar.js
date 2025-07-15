@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import {
   AppBar,
   Toolbar,
@@ -13,19 +14,16 @@ import {
   ListItemText,
   useTheme,
   useMediaQuery,
-  Avatar,
 } from '@mui/material';
 import {
   Menu as MenuIcon,
   Close as CloseIcon,
-  Email as EmailIcon,
   Home as HomeIcon,
   Info as InfoIcon,
   Description as DocsIcon,
   AutoAwesome as AIIcon,
 } from '@mui/icons-material';
 import { Link, useLocation } from 'react-router-dom';
-import { motion } from 'framer-motion';
 
 const Navbar = () => {
   const theme = useTheme();
@@ -44,36 +42,65 @@ const Navbar = () => {
   };
 
   const drawer = (
-    <Box sx={{ width: 250, height: '100%', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
-      <Box sx={{ display: 'flex', justifyContent: 'flex-end', p: 1 }}>
-        <IconButton onClick={handleDrawerToggle} sx={{ color: 'white' }}>
-          <CloseIcon />
-        </IconButton>
+    <Box sx={{ 
+      width: 280, 
+      height: '100%', 
+      background: 'rgba(0, 0, 0, 0.9)',
+      backdropFilter: 'blur(20px)',
+      borderRight: '1px solid rgba(255, 255, 255, 0.1)'
+    }}>
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end', p: 2 }}>
+        <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+          <IconButton 
+            onClick={handleDrawerToggle} 
+            sx={{ 
+              color: 'white',
+              background: 'rgba(255, 255, 255, 0.1)',
+              backdropFilter: 'blur(10px)',
+              '&:hover': {
+                background: 'rgba(255, 255, 255, 0.15)',
+              }
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+        </motion.div>
       </Box>
       <List>
         {menuItems.map((item) => (
-          <ListItem
+          <motion.div
             key={item.path}
-            component={Link}
-            to={item.path}
-            onClick={handleDrawerToggle}
-            sx={{
-              color: 'white',
-              textDecoration: 'none',
-              backgroundColor: location.pathname === item.path ? 'rgba(255,255,255,0.1)' : 'transparent',
-              '&:hover': {
-                backgroundColor: 'rgba(255,255,255,0.1)',
-              },
-              borderRadius: '8px',
-              mx: 1,
-              mb: 1,
-            }}
+            whileHover={{ scale: 1.02, x: 5 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ duration: 0.2 }}
           >
-            <ListItemIcon sx={{ color: 'white', minWidth: 36 }}>
-              {item.icon}
-            </ListItemIcon>
-            <ListItemText primary={item.label} />
-          </ListItem>
+            <ListItem
+              component={Link}
+              to={item.path}
+              onClick={handleDrawerToggle}
+              sx={{
+                color: 'white',
+                textDecoration: 'none',
+                backgroundColor: location.pathname === item.path ? 'rgba(255,255,255,0.15)' : 'transparent',
+                backdropFilter: location.pathname === item.path ? 'blur(10px)' : 'none',
+                border: location.pathname === item.path ? '1px solid rgba(255,255,255,0.2)' : '1px solid transparent',
+                '&:hover': {
+                  backgroundColor: 'rgba(255,255,255,0.1)',
+                  backdropFilter: 'blur(15px)',
+                  border: '1px solid rgba(255,255,255,0.15)',
+                },
+                borderRadius: '12px',
+                mx: 1,
+                mb: 1,
+                transition: 'all 0.3s ease',
+              }}
+            >
+              <ListItemIcon sx={{ color: 'white', minWidth: 36 }}>
+                {item.icon}
+              </ListItemIcon>
+              <ListItemText primary={item.label} />
+            </ListItem>
+          </motion.div>
         ))}
       </List>
     </Box>
@@ -85,10 +112,10 @@ const Navbar = () => {
         position="static" 
         elevation={0} 
         sx={{ 
-          background: 'rgba(255, 255, 255, 0.95)',
+          background: 'rgba(0, 0, 0, 0.8)',
           backdropFilter: 'blur(20px)',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.2)',
-          boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
+          borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+          boxShadow: '0 4px 20px rgba(0,0,0,0.3)'
         }}
       >
         <Toolbar>
@@ -99,7 +126,9 @@ const Navbar = () => {
             style={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}
           >
             <Box sx={{
-              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              background: 'rgba(255, 255, 255, 0.1)',
+              backdropFilter: 'blur(15px)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
               borderRadius: '12px',
               p: 1,
               mr: 2,
@@ -115,15 +144,14 @@ const Navbar = () => {
               to="/"
               sx={{
                 fontWeight: 800,
-                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
+                color: 'white',
                 textDecoration: 'none',
                 fontSize: { xs: '1rem', md: '1.25rem' },
                 '&:hover': {
                   textDecoration: 'none',
+                  color: 'rgba(255, 255, 255, 0.8)',
                 },
+                transition: 'color 0.3s ease',
               }}
             >
               AI Email Generator
@@ -131,20 +159,25 @@ const Navbar = () => {
           </motion.div>
           
           {isMobile ? (
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              onClick={handleDrawerToggle}
-              sx={{ 
-                color: 'primary.main',
-                '&:hover': {
-                  background: 'rgba(102, 126, 234, 0.1)',
-                }
-              }}
-            >
-              <MenuIcon />
-            </IconButton>
+            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+              <IconButton
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                onClick={handleDrawerToggle}
+                sx={{ 
+                  color: 'white',
+                  background: 'rgba(255, 255, 255, 0.1)',
+                  backdropFilter: 'blur(10px)',
+                  border: '1px solid rgba(255, 255, 255, 0.15)',
+                  '&:hover': {
+                    background: 'rgba(255, 255, 255, 0.15)',
+                  }
+                }}
+              >
+                <MenuIcon />
+              </IconButton>
+            </motion.div>
           ) : (
             <motion.div
               initial={{ opacity: 0, x: 20 }}
@@ -153,34 +186,45 @@ const Navbar = () => {
             >
               <Box sx={{ display: 'flex', gap: 1 }}>
                 {menuItems.map((item) => (
-                  <Button
+                  <motion.div
                     key={item.path}
-                    component={Link}
-                    to={item.path}
-                    startIcon={item.icon}
-                    variant={location.pathname === item.path ? 'contained' : 'text'}
-                    sx={{
-                      borderRadius: '12px',
-                      px: 3,
-                      py: 1,
-                      fontWeight: 600,
-                      textTransform: 'none',
-                      ...(location.pathname === item.path ? {
-                        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                        color: 'white',
-                        '&:hover': {
-                          background: 'linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%)',
-                        }
-                      } : {
-                        color: 'primary.main',
-                        '&:hover': {
-                          background: 'rgba(102, 126, 234, 0.1)',
-                        }
-                      })
-                    }}
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    transition={{ duration: 0.2 }}
                   >
-                    {item.label}
-                  </Button>
+                    <Button
+                      component={Link}
+                      to={item.path}
+                      startIcon={item.icon}
+                      variant={location.pathname === item.path ? 'contained' : 'text'}
+                      sx={{
+                        borderRadius: '12px',
+                        px: 3,
+                        py: 1,
+                        fontWeight: 600,
+                        textTransform: 'none',
+                        backdropFilter: 'blur(10px)',
+                        border: '1px solid rgba(255, 255, 255, 0.1)',
+                        transition: 'all 0.3s ease',
+                        ...(location.pathname === item.path ? {
+                          background: 'rgba(255, 255, 255, 0.15)',
+                          color: 'white',
+                          boxShadow: '0 4px 15px rgba(255, 255, 255, 0.1)',
+                          '&:hover': {
+                            background: 'rgba(255, 255, 255, 0.2)',
+                          }
+                        } : {
+                          color: 'white',
+                          background: 'rgba(255, 255, 255, 0.05)',
+                          '&:hover': {
+                            background: 'rgba(255, 255, 255, 0.1)',
+                          }
+                        })
+                      }}
+                    >
+                      {item.label}
+                    </Button>
+                  </motion.div>
                 ))}
               </Box>
             </motion.div>

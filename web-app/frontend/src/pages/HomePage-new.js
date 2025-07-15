@@ -42,9 +42,9 @@ const FeatureCard = ({ icon, title, description, delay }) => (
     style={{ height: '100%' }}
   >
     <Card sx={{
-      background: 'rgba(255, 255, 255, 0.9)',
-      backdropFilter: 'blur(10px)',
-      border: '1px solid rgba(255, 255, 255, 0.2)',
+      background: 'rgba(255, 255, 255, 0.05)',
+      backdropFilter: 'blur(20px)',
+      border: '1px solid rgba(255, 255, 255, 0.1)',
       borderRadius: '20px',
       p: 3,
       textAlign: 'center',
@@ -59,12 +59,14 @@ const FeatureCard = ({ icon, title, description, delay }) => (
       }
     }}>
       <Box sx={{
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        background: 'rgba(255, 255, 255, 0.1)',
         borderRadius: '16px',
         p: 2,
         display: 'inline-flex',
         mb: 2,
-        alignSelf: 'center'
+        alignSelf: 'center',
+        backdropFilter: 'blur(10px)',
+        border: '1px solid rgba(255, 255, 255, 0.15)',
       }}>
         {icon}
       </Box>
@@ -119,7 +121,7 @@ const HomePage = () => {
   return (
     <Box sx={{ 
       minHeight: '100vh',
-      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      background: '#000000',
       position: 'relative',
       overflow: 'hidden'
     }}>
@@ -133,39 +135,64 @@ const HomePage = () => {
         overflow: 'hidden',
         zIndex: 1
       }}>
+        {/* Floating orbs */}
         <motion.div
           animate={{ 
-            y: [0, -20, 0],
-            rotate: [0, 5, 0]
+            y: [0, -30, 0],
+            x: [0, 20, 0],
+            rotate: [0, 10, 0]
           }}
-          transition={{ duration: 6, repeat: Infinity }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
         >
           <Box sx={{
             position: 'absolute',
-            top: '10%',
-            right: '10%',
-            width: { xs: '200px', md: '400px' },
-            height: { xs: '200px', md: '400px' },
+            top: '15%',
+            right: '15%',
+            width: { xs: '300px', md: '500px' },
+            height: { xs: '300px', md: '500px' },
             borderRadius: '50%',
-            background: 'rgba(255, 255, 255, 0.1)',
+            background: 'radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, transparent 70%)',
+            filter: 'blur(40px)',
           }} />
         </motion.div>
         
         <motion.div
           animate={{ 
-            y: [0, 20, 0],
-            rotate: [0, -5, 0]
+            y: [0, 40, 0],
+            x: [0, -25, 0],
+            rotate: [0, -15, 0]
           }}
-          transition={{ duration: 8, repeat: Infinity }}
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
         >
           <Box sx={{
             position: 'absolute',
-            bottom: '5%',
-            left: '5%',
-            width: { xs: '150px', md: '300px' },
-            height: { xs: '150px', md: '300px' },
+            bottom: '10%',
+            left: '10%',
+            width: { xs: '250px', md: '400px' },
+            height: { xs: '250px', md: '400px' },
             borderRadius: '50%',
-            background: 'rgba(255, 255, 255, 0.05)',
+            background: 'radial-gradient(circle, rgba(255, 255, 255, 0.02) 0%, transparent 70%)',
+            filter: 'blur(50px)',
+          }} />
+        </motion.div>
+
+        <motion.div
+          animate={{ 
+            y: [0, -20, 0],
+            x: [0, 15, 0],
+            scale: [1, 1.1, 1]
+          }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <Box sx={{
+            position: 'absolute',
+            top: '60%',
+            right: '5%',
+            width: { xs: '200px', md: '350px' },
+            height: { xs: '200px', md: '350px' },
+            borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(255, 255, 255, 0.04) 0%, transparent 70%)',
+            filter: 'blur(60px)',
           }} />
         </motion.div>
       </Box>
@@ -178,33 +205,62 @@ const HomePage = () => {
           transition={{ duration: 0.8 }}
         >
           <Box sx={{ textAlign: 'center', mb: 8 }}>
-            <Typography 
-              variant="h1" 
-              sx={{ 
-                fontSize: { xs: '2.5rem', md: '4.5rem' },
-                fontWeight: 800,
-                color: 'white',
-                mb: 2,
-                textShadow: '0 4px 20px rgba(0,0,0,0.3)',
-              }}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1, delay: 0.2 }}
             >
-              🚀 AI Cold Email Generator
-            </Typography>
+              <Typography 
+                variant="h1" 
+                sx={{ 
+                  fontSize: { xs: '2.5rem', md: '4.5rem', lg: '5.5rem' },
+                  fontWeight: 900,
+                  color: 'white',
+                  mb: 2,
+                  background: 'linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.9) 50%, #ffffff 100%)',
+                  backgroundClip: 'text',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  textShadow: '0 4px 20px rgba(0,0,0,0.5)',
+                  letterSpacing: '-0.02em',
+                }}
+              >
+                AI Cold Email
+                <Box component="span" sx={{ 
+                  display: 'block',
+                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.6) 100%)',
+                  backgroundClip: 'text',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                }}>
+                  Generator
+                </Box>
+              </Typography>
+            </motion.div>
             
-            <Typography 
-              variant="h6" 
-              sx={{ 
-                maxWidth: 800, 
-                mx: 'auto',
-                color: 'rgba(255, 255, 255, 0.9)',
-                fontSize: { xs: '1.1rem', md: '1.3rem' },
-                lineHeight: 1.6,
-                mb: 6
-              }}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
             >
-              Transform any job posting into a personalized cold email using cutting-edge AI. 
-              Our intelligent system analyzes requirements and crafts compelling outreach messages.
-            </Typography>
+              <Typography 
+                variant="h5" 
+                sx={{ 
+                  maxWidth: 900, 
+                  mx: 'auto',
+                  color: 'rgba(255, 255, 255, 0.8)',
+                  fontSize: { xs: '1.1rem', md: '1.4rem' },
+                  lineHeight: 1.6,
+                  mb: 6,
+                  fontWeight: 400
+                }}
+              >
+                Transform any job posting into a personalized cold email using cutting-edge AI. 
+                <Box component="span" sx={{ color: 'rgba(99, 102, 241, 0.9)', fontWeight: 600 }}>
+                  Our intelligent system
+                </Box> analyzes requirements and crafts compelling outreach messages.
+              </Typography>
+            </motion.div>
 
             {/* Feature Cards */}
             <Grid container spacing={3} sx={{ mb: 6 }}>
@@ -248,18 +304,25 @@ const HomePage = () => {
           {/* Input Form */}
           <Grid item xs={12} lg={6}>
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
+              initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
             >
               <Box sx={{
-                background: 'linear-gradient(145deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.08))',
+                background: 'rgba(255, 255, 255, 0.03)',
                 backdropFilter: 'blur(30px)',
-                border: '1px solid rgba(255, 255, 255, 0.18)',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
                 borderRadius: '32px',
-                boxShadow: '0 25px 45px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
+                boxShadow: '0 32px 64px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
                 position: 'relative',
                 overflow: 'hidden',
+                transition: 'all 0.4s ease',
+                '&:hover': {
+                  background: 'rgba(255, 255, 255, 0.05)',
+                  border: '1px solid rgba(255, 255, 255, 0.12)',
+                  transform: 'translateY(-4px)',
+                  boxShadow: '0 40px 80px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
+                },
                 '&::before': {
                   content: '""',
                   position: 'absolute',
@@ -267,21 +330,11 @@ const HomePage = () => {
                   left: 0,
                   right: 0,
                   height: '1px',
-                  background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent)',
+                  background: 'linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.5), transparent)',
                 },
-                '&::after': {
-                  content: '""',
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, transparent 50%)',
-                  pointerEvents: 'none',
-                }
               }}>
-                <Box sx={{ p: 5, position: 'relative', zIndex: 1 }}>
-                  {/* Header with floating icon */}
+                <Box sx={{ p: 6, position: 'relative', zIndex: 1 }}>
+                  {/* Header Icon */}
                   <Box sx={{ 
                     display: 'flex', 
                     alignItems: 'center', 
@@ -290,79 +343,80 @@ const HomePage = () => {
                   }}>
                     <motion.div
                       animate={{ 
-                        y: [0, -8, 0],
-                        rotateY: [0, 10, 0]
+                        y: [0, -10, 0],
+                        rotateY: [0, 15, 0],
+                        scale: [1, 1.05, 1]
                       }}
-                      transition={{ duration: 4, repeat: Infinity }}
+                      transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
                     >
                       <Box sx={{
-                        background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.15))',
-                        backdropFilter: 'blur(20px)',
-                        borderRadius: '24px',
-                        p: 3,
-                        border: '1px solid rgba(255, 255, 255, 0.2)',
-                        boxShadow: '0 15px 35px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
+                        background: 'rgba(255, 255, 255, 0.05)',
+                        backdropFilter: 'blur(25px)',
+                        borderRadius: '28px',
+                        p: 4,
+                        border: '1px solid rgba(255, 255, 255, 0.15)',
+                        boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
                         position: 'relative',
-                        '&::before': {
+                        '&::after': {
                           content: '""',
                           position: 'absolute',
                           top: 0,
                           left: 0,
                           right: 0,
                           bottom: 0,
-                          borderRadius: '24px',
-                          background: 'linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent)',
-                          animation: 'shimmer 3s infinite',
+                          borderRadius: '28px',
+                          background: 'linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.05), transparent)',
+                          opacity: 0,
+                          transition: 'opacity 0.3s ease',
                         },
-                        '@keyframes shimmer': {
-                          '0%': { transform: 'translateX(-100%)' },
-                          '100%': { transform: 'translateX(100%)' },
+                        '&:hover::after': {
+                          opacity: 1,
                         }
                       }}>
                         <LinkIcon sx={{ 
                           color: 'white', 
-                          fontSize: '2.5rem',
-                          filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2))'
+                          fontSize: '3rem',
+                          filter: 'drop-shadow(0 4px 12px rgba(99, 102, 241, 0.3))'
                         }} />
                       </Box>
                     </motion.div>
                   </Box>
 
                   <Typography 
-                    variant="h4" 
+                    variant="h3" 
                     sx={{ 
-                      fontWeight: 700,
+                      fontWeight: 800,
                       textAlign: 'center',
                       mb: 2,
-                      background: 'linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.8) 100%)',
-                      backgroundClip: 'text',
-                      WebkitBackgroundClip: 'text',
-                      WebkitTextFillColor: 'transparent',
-                      textShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                      color: 'white',
+                      fontSize: { xs: '1.8rem', md: '2.2rem' },
+                      letterSpacing: '-0.01em',
                     }}
                   >
-                    Enter Job URL
+                    Drop Your Link
                   </Typography>
 
                   <Typography 
                     variant="body1" 
                     sx={{ 
                       textAlign: 'center',
-                      mb: 4,
-                      color: 'rgba(255, 255, 255, 0.85)',
+                      mb: 5,
+                      color: 'rgba(255, 255, 255, 0.6)',
                       fontSize: '1.1rem',
-                      lineHeight: 1.6
+                      lineHeight: 1.7,
+                      maxWidth: '400px',
+                      mx: 'auto'
                     }}
                   >
-                    Paste any job posting URL and let AI create your perfect cold email
+                    Paste any job posting URL and watch AI craft your perfect cold email in seconds
                   </Typography>
                   
                   <form onSubmit={handleSubmit(onSubmit)}>
-                    <Box sx={{ mb: 4 }}>
+                    <Box sx={{ mb: 5 }}>
                       <TextField
                         fullWidth
                         label="Job Posting URL"
-                        placeholder="https://jobs.company.com/job/123"
+                        placeholder="https://company.com/careers/job/123"
                         variant="outlined"
                         {...register('jobUrl', {
                           required: 'Job URL is required',
@@ -375,43 +429,21 @@ const HomePage = () => {
                         helperText={errors.jobUrl?.message}
                         sx={{
                           '& .MuiOutlinedInput-root': {
-                            background: 'rgba(255, 255, 255, 0.1)',
-                            backdropFilter: 'blur(10px)',
-                            borderRadius: '20px',
-                            fontSize: '1.1rem',
-                            '& fieldset': {
-                              border: '1px solid rgba(255, 255, 255, 0.25)',
-                              borderRadius: '20px',
-                            },
-                            '&:hover fieldset': {
-                              border: '1px solid rgba(255, 255, 255, 0.4)',
-                            },
-                            '&.Mui-focused fieldset': {
-                              border: '2px solid rgba(255, 255, 255, 0.6)',
-                            },
+                            py: 1,
                             '& input': {
-                              color: 'white',
-                              padding: '16px 20px',
-                              '&::placeholder': {
-                                color: 'rgba(255, 255, 255, 0.6)',
-                                opacity: 1,
-                              }
-                            }
-                          },
-                          '& .MuiInputLabel-root': {
-                            color: 'rgba(255, 255, 255, 0.8)',
-                            '&.Mui-focused': {
-                              color: 'white',
+                              padding: '20px 24px',
+                              fontSize: '1.1rem',
                             }
                           },
                           '& .MuiFormHelperText-root': {
-                            background: 'rgba(244, 67, 54, 0.9)',
+                            background: 'rgba(239, 68, 68, 0.9)',
                             backdropFilter: 'blur(10px)',
-                            margin: '8px 0 0 0',
-                            padding: '8px 16px',
-                            borderRadius: '12px',
+                            margin: '12px 0 0 0',
+                            padding: '12px 20px',
+                            borderRadius: '16px',
                             color: 'white',
-                            fontSize: '0.875rem'
+                            fontSize: '0.9rem',
+                            border: '1px solid rgba(239, 68, 68, 0.3)',
                           }
                         }}
                       />
@@ -432,33 +464,41 @@ const HomePage = () => {
                             animate={{ rotate: 360 }}
                             transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                           >
-                            <CircularProgress size={24} sx={{ color: 'rgba(255, 255, 255, 0.8)' }} />
+                            <CircularProgress size={28} sx={{ color: 'rgba(255, 255, 255, 0.9)' }} />
                           </motion.div>
-                        ) : <SendIcon />}
+                        ) : (
+                          <motion.div
+                            animate={{ x: [0, 5, 0] }}
+                            transition={{ duration: 2, repeat: Infinity }}
+                          >
+                            <SendIcon />
+                          </motion.div>
+                        )}
                         sx={{
-                          py: 2,
-                          fontSize: '1.2rem',
-                          fontWeight: 600,
-                          borderRadius: '20px',
-                          background: emailMutation.isLoading 
-                            ? 'linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1))'
-                            : 'linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.15))',
-                          backdropFilter: 'blur(20px)',
-                          border: '1px solid rgba(255, 255, 255, 0.3)',
-                          color: 'white',
-                          textShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
-                          boxShadow: '0 15px 35px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
-                          '&:hover': {
-                            background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.2))',
-                            boxShadow: '0 20px 45px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.4)',
+                          py: 2.5,
+                          fontSize: '1.3rem',
+                          fontWeight: 700,
+                          borderRadius: '24px',
+                          textTransform: 'none',
+                          letterSpacing: '0.5px',
+                          position: 'relative',
+                          overflow: 'hidden',
+                          '&::before': {
+                            content: '""',
+                            position: 'absolute',
+                            top: 0,
+                            left: '-100%',
+                            width: '100%',
+                            height: '100%',
+                            background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent)',
+                            transition: 'left 0.6s ease',
                           },
-                          '&:disabled': {
-                            background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05))',
-                            color: 'rgba(255, 255, 255, 0.5)',
-                          }
+                          '&:hover::before': {
+                            left: '100%',
+                          },
                         }}
                       >
-                        {emailMutation.isLoading ? 'Generating Magic...' : '✨ Generate Cold Email'}
+                        {emailMutation.isLoading ? 'Creating Magic...' : '✨ Generate Email'}
                       </Button>
                     </motion.div>
                   </form>
@@ -470,29 +510,35 @@ const HomePage = () => {
                       transition={{ duration: 0.5 }}
                     >
                       <Box sx={{ 
-                        mt: 4, 
-                        p: 3,
+                        mt: 5, 
+                        p: 4,
                         textAlign: 'center',
-                        background: 'rgba(255, 255, 255, 0.08)',
-                        backdropFilter: 'blur(15px)',
-                        borderRadius: '20px',
-                        border: '1px solid rgba(255, 255, 255, 0.15)'
+                        background: 'rgba(255, 255, 255, 0.03)',
+                        backdropFilter: 'blur(20px)',
+                        borderRadius: '24px',
+                        border: '1px solid rgba(255, 255, 255, 0.1)',
+                        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)',
                       }}>
                         <motion.div
-                          animate={{ scale: [1, 1.1, 1] }}
+                          animate={{ 
+                            scale: [1, 1.05, 1],
+                            opacity: [0.8, 1, 0.8]
+                          }}
                           transition={{ duration: 2, repeat: Infinity }}
                         >
                           <Typography variant="h6" sx={{ 
                             color: 'white', 
                             mb: 1,
-                            fontWeight: 600
+                            fontWeight: 700,
+                            fontSize: '1.2rem'
                           }}>
                             🤖 AI Working Its Magic
                           </Typography>
                         </motion.div>
-                        <Typography variant="body2" sx={{ 
+                        <Typography variant="body1" sx={{ 
                           color: 'rgba(255, 255, 255, 0.8)',
-                          fontSize: '1rem'
+                          fontSize: '1rem',
+                          lineHeight: 1.6
                         }}>
                           Analyzing job requirements and crafting your personalized email...
                         </Typography>
@@ -507,20 +553,27 @@ const HomePage = () => {
           {/* Results */}
           <Grid item xs={12} lg={6}>
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
+              initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.8 }}
             >
               {result ? (
                 <Fade in={!!result}>
                   <Box sx={{
-                    background: 'linear-gradient(145deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.08))',
+                    background: 'rgba(255, 255, 255, 0.03)',
                     backdropFilter: 'blur(30px)',
-                    border: '1px solid rgba(255, 255, 255, 0.18)',
+                    border: '1px solid rgba(255, 255, 255, 0.08)',
                     borderRadius: '32px',
-                    boxShadow: '0 25px 45px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
+                    boxShadow: '0 32px 64px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
                     position: 'relative',
                     overflow: 'hidden',
+                    transition: 'all 0.4s ease',
+                    '&:hover': {
+                      background: 'rgba(255, 255, 255, 0.05)',
+                      border: '1px solid rgba(255, 255, 255, 0.12)',
+                      transform: 'translateY(-4px)',
+                      boxShadow: '0 40px 80px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
+                    },
                     '&::before': {
                       content: '""',
                       position: 'absolute',
@@ -528,20 +581,10 @@ const HomePage = () => {
                       left: 0,
                       right: 0,
                       height: '1px',
-                      background: 'linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.6), transparent)',
+                      background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent)',
                     },
-                    '&::after': {
-                      content: '""',
-                      position: 'absolute',
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, transparent 50%)',
-                      pointerEvents: 'none',
-                    }
                   }}>
-                    <Box sx={{ p: 5, position: 'relative', zIndex: 1 }}>
+                    <Box sx={{ p: 6, position: 'relative', zIndex: 1 }}>
                       {/* Success Header */}
                       <Box sx={{ 
                         display: 'flex', 
@@ -555,54 +598,52 @@ const HomePage = () => {
                           transition={{ type: "spring", stiffness: 200, damping: 15 }}
                         >
                           <Box sx={{
-                            background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(16, 185, 129, 0.2))',
-                            backdropFilter: 'blur(20px)',
-                            borderRadius: '24px',
-                            p: 3,
-                            border: '1px solid rgba(16, 185, 129, 0.3)',
-                            boxShadow: '0 15px 35px rgba(16, 185, 129, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
+                            background: 'rgba(255, 255, 255, 0.08)',
+                            backdropFilter: 'blur(25px)',
+                            borderRadius: '28px',
+                            p: 4,
+                            border: '1px solid rgba(255, 255, 255, 0.2)',
+                            boxShadow: '0 20px 40px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
                           }}>
                             <CheckIcon sx={{ 
-                              color: '#10b981', 
-                              fontSize: '2.5rem',
-                              filter: 'drop-shadow(0 4px 8px rgba(16, 185, 129, 0.3))'
+                              color: 'white', 
+                              fontSize: '3rem',
+                              filter: 'drop-shadow(0 4px 12px rgba(255, 255, 255, 0.2))'
                             }} />
                           </Box>
                         </motion.div>
                       </Box>
 
-                      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 4 }}>
+                      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 5 }}>
                         <Typography 
-                          variant="h4" 
+                          variant="h3" 
                           sx={{ 
-                            fontWeight: 700,
-                            background: 'linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.8) 100%)',
-                            backgroundClip: 'text',
-                            WebkitBackgroundClip: 'text',
-                            WebkitTextFillColor: 'transparent',
-                            textShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                            fontWeight: 800,
+                            color: 'white',
+                            fontSize: { xs: '1.8rem', md: '2.2rem' },
+                            letterSpacing: '-0.01em',
                           }}
                         >
-                          Email Generated! ✨
+                          Email Ready! ✨
                         </Typography>
                         
                         <Stack direction="row" spacing={2}>
-                          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
                             <Tooltip title="Copy to clipboard" arrow>
                               <Button
                                 onClick={() => copyToClipboard(result.email)}
                                 sx={{
                                   minWidth: 'auto',
                                   p: 2,
-                                  borderRadius: '16px',
-                                  background: 'rgba(255, 255, 255, 0.15)',
-                                  backdropFilter: 'blur(15px)',
-                                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                                  borderRadius: '20px',
+                                  background: 'rgba(255, 255, 255, 0.08)',
+                                  backdropFilter: 'blur(20px)',
+                                  border: '1px solid rgba(255, 255, 255, 0.15)',
                                   color: 'white',
                                   '&:hover': {
-                                    background: 'rgba(255, 255, 255, 0.25)',
-                                    transform: 'translateY(-2px)',
-                                    boxShadow: '0 10px 25px rgba(0, 0, 0, 0.15)'
+                                    background: 'rgba(255, 255, 255, 0.15)',
+                                    transform: 'translateY(-3px)',
+                                    boxShadow: '0 12px 32px rgba(0, 0, 0, 0.3)'
                                   }
                                 }}
                               >
@@ -611,22 +652,22 @@ const HomePage = () => {
                             </Tooltip>
                           </motion.div>
                           
-                          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
                             <Tooltip title="Download email" arrow>
                               <Button
                                 onClick={downloadEmail}
                                 sx={{
                                   minWidth: 'auto',
                                   p: 2,
-                                  borderRadius: '16px',
-                                  background: 'rgba(255, 255, 255, 0.15)',
-                                  backdropFilter: 'blur(15px)',
-                                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                                  borderRadius: '20px',
+                                  background: 'rgba(255, 255, 255, 0.08)',
+                                  backdropFilter: 'blur(20px)',
+                                  border: '1px solid rgba(255, 255, 255, 0.15)',
                                   color: 'white',
                                   '&:hover': {
-                                    background: 'rgba(255, 255, 255, 0.25)',
-                                    transform: 'translateY(-2px)',
-                                    boxShadow: '0 10px 25px rgba(0, 0, 0, 0.15)'
+                                    background: 'rgba(255, 255, 255, 0.15)',
+                                    transform: 'translateY(-3px)',
+                                    boxShadow: '0 12px 32px rgba(0, 0, 0, 0.3)'
                                   }
                                 }}
                               >
@@ -644,40 +685,44 @@ const HomePage = () => {
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: 0.3 }}
                         >
-                          <Box sx={{ mb: 4 }}>
+                          <Box sx={{ mb: 5 }}>
                             <Typography 
                               variant="h6" 
                               sx={{ 
                                 mb: 3, 
-                                fontWeight: 600,
-                                color: 'rgba(255, 255, 255, 0.9)',
+                                fontWeight: 700,
+                                color: 'white',
+                                fontSize: '1.3rem',
                                 display: 'flex',
                                 alignItems: 'center'
                               }}
                             >
                               🎯 Matched Portfolio Projects
                             </Typography>
-                            <Stack direction="row" spacing={1.5} flexWrap="wrap" useFlexGap>
+                            <Stack direction="row" spacing={2} flexWrap="wrap" useFlexGap>
                               {result.matched_projects.map((project, index) => (
                                 <motion.div
                                   key={index}
-                                  initial={{ opacity: 0, scale: 0 }}
-                                  animate={{ opacity: 1, scale: 1 }}
-                                  transition={{ delay: 0.1 * index }}
+                                  initial={{ opacity: 0, scale: 0, x: -20 }}
+                                  animate={{ opacity: 1, scale: 1, x: 0 }}
+                                  transition={{ delay: 0.1 * index, type: "spring", stiffness: 200 }}
                                 >
                                   <Chip
                                     label={project.title || project}
                                     sx={{
-                                      background: 'rgba(255, 255, 255, 0.15)',
-                                      backdropFilter: 'blur(10px)',
+                                      background: 'rgba(255, 255, 255, 0.1)',
+                                      backdropFilter: 'blur(15px)',
                                       border: '1px solid rgba(255, 255, 255, 0.2)',
                                       color: 'white',
-                                      fontWeight: 500,
-                                      fontSize: '0.9rem',
-                                      borderRadius: '12px',
+                                      fontWeight: 600,
+                                      fontSize: '0.95rem',
+                                      borderRadius: '16px',
+                                      py: 3,
+                                      px: 2,
                                       '&:hover': {
-                                        background: 'rgba(255, 255, 255, 0.25)',
-                                        transform: 'translateY(-1px)',
+                                        background: 'rgba(255, 255, 255, 0.15)',
+                                        transform: 'translateY(-2px)',
+                                        boxShadow: '0 8px 24px rgba(0, 0, 0, 0.3)',
                                       }
                                     }}
                                   />
@@ -698,8 +743,9 @@ const HomePage = () => {
                           variant="h6" 
                           sx={{ 
                             mb: 3, 
-                            fontWeight: 600,
-                            color: 'rgba(255, 255, 255, 0.9)',
+                            fontWeight: 700,
+                            color: 'white',
+                            fontSize: '1.3rem',
                             display: 'flex',
                             alignItems: 'center'
                           }}
@@ -708,11 +754,11 @@ const HomePage = () => {
                         </Typography>
                         
                         <Box sx={{
-                          background: 'linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04))',
-                          backdropFilter: 'blur(20px)',
-                          borderRadius: '24px',
-                          border: '1px solid rgba(255, 255, 255, 0.15)',
-                          maxHeight: '500px',
+                          background: 'rgba(255, 255, 255, 0.04)',
+                          backdropFilter: 'blur(25px)',
+                          borderRadius: '28px',
+                          border: '1px solid rgba(255, 255, 255, 0.1)',
+                          maxHeight: '600px',
                           overflow: 'auto',
                           position: 'relative',
                           '&::before': {
@@ -722,35 +768,36 @@ const HomePage = () => {
                             left: 0,
                             right: 0,
                             height: '1px',
-                            background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent)',
+                            background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent)',
                           },
                           // Custom scrollbar
                           '&::-webkit-scrollbar': {
-                            width: '8px',
+                            width: '6px',
                           },
                           '&::-webkit-scrollbar-track': {
-                            background: 'rgba(255, 255, 255, 0.1)',
-                            borderRadius: '10px',
+                            background: 'rgba(255, 255, 255, 0.05)',
+                            borderRadius: '12px',
+                            margin: '8px',
                           },
                           '&::-webkit-scrollbar-thumb': {
-                            background: 'rgba(255, 255, 255, 0.3)',
-                            borderRadius: '10px',
+                            background: 'rgba(255, 255, 255, 0.2)',
+                            borderRadius: '12px',
                             '&:hover': {
-                              background: 'rgba(255, 255, 255, 0.4)',
+                              background: 'rgba(255, 255, 255, 0.3)',
                             }
                           }
                         }}>
-                          <Box sx={{ p: 4 }}>
+                          <Box sx={{ p: 5 }}>
                             <ReactMarkdown
                               components={{
                                 p: ({ children }) => (
                                   <Typography 
                                     variant="body1" 
                                     sx={{ 
-                                      mb: 2.5, 
+                                      mb: 3, 
                                       lineHeight: 1.8,
                                       color: 'rgba(255, 255, 255, 0.9)',
-                                      fontSize: '1.05rem'
+                                      fontSize: '1.1rem'
                                     }}
                                   >
                                     {children}
@@ -760,10 +807,10 @@ const HomePage = () => {
                                   <Typography 
                                     variant="h5" 
                                     sx={{ 
-                                      mb: 2.5, 
-                                      fontWeight: 600,
+                                      mb: 3, 
+                                      fontWeight: 700,
                                       color: 'white',
-                                      textShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
+                                      fontSize: '1.4rem'
                                     }}
                                   >
                                     {children}
@@ -773,9 +820,10 @@ const HomePage = () => {
                                   <Typography 
                                     variant="h6" 
                                     sx={{ 
-                                      mb: 2, 
+                                      mb: 2.5, 
                                       fontWeight: 600,
-                                      color: 'rgba(255, 255, 255, 0.95)'
+                                      color: 'rgba(255, 255, 255, 0.95)',
+                                      fontSize: '1.2rem'
                                     }}
                                   >
                                     {children}
@@ -793,16 +841,21 @@ const HomePage = () => {
                 </Fade>
               ) : (
                 <Box sx={{
-                  background: 'linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04))',
+                  background: 'rgba(255, 255, 255, 0.02)',
                   backdropFilter: 'blur(30px)',
-                  border: '2px dashed rgba(255, 255, 255, 0.2)',
+                  border: '2px dashed rgba(255, 255, 255, 0.1)',
                   borderRadius: '32px',
-                  minHeight: '500px',
+                  minHeight: '600px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   position: 'relative',
                   overflow: 'hidden',
+                  transition: 'all 0.4s ease',
+                  '&:hover': {
+                    border: '2px dashed rgba(255, 255, 255, 0.15)',
+                    background: 'rgba(255, 255, 255, 0.03)',
+                  },
                   '&::before': {
                     content: '""',
                     position: 'absolute',
@@ -810,29 +863,29 @@ const HomePage = () => {
                     left: 0,
                     right: 0,
                     bottom: 0,
-                    background: 'linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.02) 50%, transparent 70%)',
-                    animation: 'shimmer 4s infinite',
+                    background: 'linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.005) 50%, transparent 70%)',
+                    animation: 'shimmer 6s infinite',
                   },
                   '@keyframes shimmer': {
                     '0%': { transform: 'translateX(-100%)' },
                     '100%': { transform: 'translateX(100%)' },
                   }
                 }}>
-                  <Box sx={{ textAlign: 'center', p: 6, position: 'relative', zIndex: 1 }}>
+                  <Box sx={{ textAlign: 'center', p: 8, position: 'relative', zIndex: 1 }}>
                     <motion.div
                       animate={{ 
-                        y: [0, -15, 0],
-                        rotate: [0, 5, -5, 0],
-                        scale: [1, 1.1, 1]
+                        y: [0, -20, 0],
+                        rotate: [0, 10, -10, 0],
+                        scale: [1, 1.15, 1]
                       }}
-                      transition={{ duration: 4, repeat: Infinity }}
+                      transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
                     >
                       <Typography 
                         variant="h1" 
                         sx={{ 
-                          mb: 3, 
-                          fontSize: '4rem',
-                          filter: 'drop-shadow(0 8px 16px rgba(0, 0, 0, 0.2))'
+                          mb: 4, 
+                          fontSize: '5rem',
+                          filter: 'drop-shadow(0 12px 24px rgba(0, 0, 0, 0.4))'
                         }}
                       >
                         ✨
@@ -840,12 +893,13 @@ const HomePage = () => {
                     </motion.div>
                     
                     <Typography 
-                      variant="h5" 
+                      variant="h4" 
                       sx={{ 
-                        color: 'rgba(255, 255, 255, 0.8)', 
+                        color: 'white', 
                         mb: 2,
-                        fontWeight: 600,
-                        textShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
+                        fontWeight: 800,
+                        fontSize: { xs: '1.8rem', md: '2.2rem' },
+                        letterSpacing: '-0.01em'
                       }}
                     >
                       Your AI-Generated Email
@@ -855,35 +909,44 @@ const HomePage = () => {
                       variant="h6" 
                       sx={{ 
                         color: 'rgba(255, 255, 255, 0.6)',
-                        mb: 3,
-                        fontSize: '1.1rem',
-                        lineHeight: 1.6
+                        mb: 4,
+                        fontSize: '1.2rem',
+                        lineHeight: 1.6,
+                        fontWeight: 400
                       }}
                     >
                       Will appear here like magic ✨
                     </Typography>
                     
-                    <Box sx={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: 2,
-                      px: 3,
-                      py: 1.5,
-                      background: 'rgba(255, 255, 255, 0.1)',
-                      backdropFilter: 'blur(10px)',
-                      borderRadius: '16px',
-                      border: '1px solid rgba(255, 255, 255, 0.15)'
-                    }}>
-                      <Typography variant="body1" sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
-                        Enter a job URL to get started
-                      </Typography>
-                      <motion.div
-                        animate={{ x: [0, 5, 0] }}
-                        transition={{ duration: 1.5, repeat: Infinity }}
-                      >
-                        <Typography sx={{ color: 'rgba(255, 255, 255, 0.5)' }}>→</Typography>
-                      </motion.div>
-                    </Box>
+                    <motion.div
+                      animate={{ 
+                        scale: [1, 1.05, 1],
+                        opacity: [0.7, 1, 0.7]
+                      }}
+                      transition={{ duration: 3, repeat: Infinity }}
+                    >
+                      <Box sx={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: 3,
+                        px: 4,
+                        py: 2,
+                        background: 'rgba(255, 255, 255, 0.05)',
+                        backdropFilter: 'blur(15px)',
+                        borderRadius: '20px',
+                        border: '1px solid rgba(255, 255, 255, 0.1)'
+                      }}>
+                        <Typography variant="body1" sx={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '1.1rem' }}>
+                          Enter a job URL to get started
+                        </Typography>
+                        <motion.div
+                          animate={{ x: [0, 8, 0] }}
+                          transition={{ duration: 2, repeat: Infinity }}
+                        >
+                          <Typography sx={{ color: 'rgba(99, 102, 241, 0.8)', fontSize: '1.2rem' }}>→</Typography>
+                        </motion.div>
+                      </Box>
+                    </motion.div>
                   </Box>
                 </Box>
               )}

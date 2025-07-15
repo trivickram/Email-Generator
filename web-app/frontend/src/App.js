@@ -6,7 +6,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'react-hot-toast';
 import theme from './theme';
 import Navbar from './components/Navbar';
-import HomePage from './pages/HomePage';
+import HomePage from './pages/HomePage-new';
 import AboutPage from './components/AboutPage';
 import DocumentationPage from './components/DocumentationPage';
 
@@ -29,10 +29,10 @@ function App() {
           toastOptions={{
             duration: 4000,
             style: {
-              background: 'rgba(255, 255, 255, 0.95)',
-              backdropFilter: 'blur(10px)',
-              color: '#1f2937',
-              border: '1px solid rgba(102, 126, 234, 0.2)',
+              background: 'rgba(0, 0, 0, 0.9)',
+              backdropFilter: 'blur(20px)',
+              color: '#ffffff',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
               borderRadius: '12px',
               fontSize: '14px',
               fontWeight: '500',
@@ -52,7 +52,12 @@ function App() {
           }}
         />
         <Router>
-          <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+          <Box sx={{ 
+            display: 'flex', 
+            flexDirection: 'column', 
+            minHeight: '100vh',
+            background: '#000000'
+          }}>
             <Navbar />
             <Box component="main" sx={{ flexGrow: 1 }}>
               <Routes>
