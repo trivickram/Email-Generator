@@ -1,0 +1,9 @@
+langchain
+langchain-community
+groq
+beautifulsoup4
+requests
+chromadb
+python-dotenv
+pandas
+numpy
