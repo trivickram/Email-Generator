@@ -98,7 +98,7 @@ def generate_email(job_url):
         
         print(f"Found {len(relevant_links)} relevant links", file=sys.stderr)
         
-        # Generate email
+        # Generate email using AI
         email = chain.write_mail(job, relevant_links)
 
         if not email or not email.strip():
