@@ -4,8 +4,8 @@
   "description": "Backend API for Cold Email Generator",
   "main": "server.js",
   "scripts": {
-    "start": "chmod +x start.sh && ./start.sh",
-    "start:simple": "node server.js",
+    "start": "node server.js",
+    "start:with-python": "chmod +x start.sh && ./start.sh",
     "dev": "nodemon server.js",
     "build": "chmod +x build.sh && ./build.sh",
     "test": "jest",

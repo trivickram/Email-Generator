@@ -92,4 +92,57 @@ router.get('/python', (req, res) => {
   });
 });
 
+// @route   GET /api/health/groq
+// @desc    Test GROQ API key availability
+// @access  Public
+router.get('/groq', (req, res) => {
+  const pythonScript = path.join(__dirname, '..', '..', 'python', 'test_groq_key.py');
+  
+  const python = spawn('python3', [pythonScript], {
+    cwd: path.join(__dirname, '..', '..'),
+    stdio: ['pipe', 'pipe', 'pipe']
+  });
+
+  let stdout = '';
+  let stderr = '';
+
+  python.stdout.on('data', (data) => {
+    stdout += data.toString();
+  });
+
+  python.stderr.on('data', (data) => {
+    stderr += data.toString();
+  });
+
+  python.on('close', (code) => {
+    try {
+      const result = JSON.parse(stdout);
+      res.json({
+        success: code === 0,
+        groq_test: result,
+        exit_code: code,
+        stderr: stderr || null,
+        node_env_groq_key_set: !!process.env.GROQ_API_KEY,
+        node_env_groq_key_length: process.env.GROQ_API_KEY ? process.env.GROQ_API_KEY.length : 0
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: 'Failed to parse GROQ test results',
+        stdout,
+        stderr,
+        exit_code: code
+      });
+    }
+  });
+
+  python.on('error', (error) => {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to execute GROQ test',
+      details: error.message
+    });
+  });
+});
+
 module.exports = router;

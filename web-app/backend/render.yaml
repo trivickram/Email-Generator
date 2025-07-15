@@ -4,13 +4,20 @@ services:
     type: web
     runtime: node
     plan: free
-    buildCommand: chmod +x ./build.sh && ./build.sh
+    buildCommand: |
+      chmod +x ./build.sh && ./build.sh &&
+      python3 -m venv venv &&
+      source venv/bin/activate &&
+      pip install --upgrade pip &&
+      pip install -r requirements.txt
     startCommand: node server.js
     envVars:
       - key: NODE_ENV
         value: production
-      - key: PYTHON_PATH
-        value: /opt/render/project/src/python:/opt/render/project/src/web-app/backend/python
+      - key: PYTHONPATH
+        value: ./python:./venv/lib/python3.*/site-packages
+      - key: GROQ_API_KEY
+        sync: false  # Set this in Render dashboard
     healthCheckPath: /api/health
     domains:
       - email-generator-backend-3p8m.onrender.com

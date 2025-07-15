@@ -1,9 +1,24 @@
 const { spawn } = require('child_process');
 const path = require('path');
+const fs = require('fs');
 
 class EmailService {
   constructor() {
-    this.pythonPath = process.env.PYTHON_PATH || (process.platform === 'win32' ? 'python' : 'python3');
+    // Use virtual environment Python if available, otherwise fall back to system Python
+    const venvPython = path.join(__dirname, '..', '..', 'venv', 'bin', 'python');
+    const venvPythonWin = path.join(__dirname, '..', '..', 'venv', 'Scripts', 'python.exe');
+    
+    if (fs.existsSync(venvPython)) {
+      this.pythonPath = venvPython;
+      console.log('🐍 Using venv Python (Unix)');
+    } else if (fs.existsSync(venvPythonWin)) {
+      this.pythonPath = venvPythonWin;
+      console.log('🐍 Using venv Python (Windows)');
+    } else {
+      this.pythonPath = process.env.PYTHON_PATH || (process.platform === 'win32' ? 'python' : 'python3');
+      console.log('🐍 Using system Python');
+    }
+    
     this.pythonDir = path.join(__dirname, '..', '..', 'python');
   }
 
