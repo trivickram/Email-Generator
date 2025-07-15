@@ -99,27 +99,35 @@ def generate_email(job_url):
         print(f"Found {len(relevant_links)} relevant links", file=sys.stderr)
         
         # Generate email
-    email = chain.write_mail(job, relevant_links)
+        email = chain.write_mail(job, relevant_links)
 
-    if not email or not email.strip():
-        print("⚠️ Email content is empty", file=sys.stderr)
+        if not email or not email.strip():
+            print("⚠️ Email content is empty", file=sys.stderr)
+            return {
+                "success": False,
+                "error": "Email generation failed — got empty content from LLM.",
+                "job": job,
+                "matched_projects": relevant_links,
+                "url": job_url
+            }
+
+        print("Generated email successfully", file=sys.stderr)
+
         return {
-            "success": False,
-            "error": "Email generation failed — got empty content from LLM.",
+            "success": True,
             "job": job,
             "matched_projects": relevant_links,
+            "email": email,
             "url": job_url
         }
-
-    print("Generated email successfully", file=sys.stderr)
-
-    return {
-        "success": True,
-        "job": job,
-        "matched_projects": relevant_links,
-        "email": email,
-        "url": job_url
-    }
+        
+    except Exception as e:
+        print(f"❌ Error in email generation: {str(e)}", file=sys.stderr)
+        return {
+            "success": False,
+            "error": f"Email generation failed: {str(e)}",
+            "url": job_url
+        }
 
 
 def get_portfolio_data():
