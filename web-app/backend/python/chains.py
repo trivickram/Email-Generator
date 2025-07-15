@@ -7,41 +7,44 @@ from dotenv import load_dotenv
 import logging
 
 # Load environment variables
-# Try to find .env file in streamlit-app directory
-dotenv_path = os.path.join(os.path.dirname(__file__), '..', 'streamlit-app', '.env')
-if os.path.exists(dotenv_path):
-    load_dotenv(dotenv_path)
+# Try to find .env file in current directory or parent directories
+current_dir = os.path.dirname(__file__)
+env_paths = [
+    os.path.join(current_dir, '.env'),
+    os.path.join(current_dir, '..', '.env'),
+    os.path.join(current_dir, '..', '..', '.env'),
+    os.path.join(current_dir, '..', '..', '..', 'streamlit-app', '.env')
+]
+
+for dotenv_path in env_paths:
+    if os.path.exists(dotenv_path):
+        load_dotenv(dotenv_path)
+        break
 else:
     load_dotenv()  # Fallback to default behavior
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
-
-import streamlit as st
-
 class Chain:
     def __init__(self):
         logging.info("🔧 Initializing Chain class...")
         # Initialize the LLM with the required API key
         
-        # Try to get API key from Streamlit secrets first, then environment
+        # Get API key from environment variables only (no streamlit)
         groq_api_key = None
         try:
-            groq_api_key = st.secrets["GROQ_API_KEY"]
-            logging.info("Using API key from Streamlit secrets")
-        except:
             groq_api_key = os.getenv("GROQ_API_KEY")
             logging.info("Using API key from environment variables")
+        except Exception as e:
+            logging.error(f"Error accessing environment variables: {e}")
             
         if not groq_api_key or groq_api_key.strip() == "":
-            logging.critical("GROQ_API_KEY is not set. Please add it to your environment variables or Streamlit secrets.")
-            st.error("❌ GROQ_API_KEY is not configured. Please contact the administrator.")
+            logging.critical("GROQ_API_KEY is not set. Please add it to your environment variables.")
             raise EnvironmentError("GROQ_API_KEY is missing. Please get a free API key from https://console.groq.com/keys")
 
         if groq_api_key.strip() == "your_api_key_here":
             logging.critical("Please replace 'your_api_key_here' with your actual Groq API key")
-            st.error("❌ Please configure a valid GROQ_API_KEY")
             raise EnvironmentError("Please set a valid GROQ_API_KEY in the .env file")
 
         try:

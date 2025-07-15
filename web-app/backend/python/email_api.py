@@ -32,6 +32,7 @@ try:
         
 except ImportError:
     print("python-dotenv not available, using system environment variables", file=sys.stderr)
+    # Don't exit - this is not a fatal error, just means we'll use system env vars
 
 try:
     from chains import Chain
@@ -170,17 +171,6 @@ def main():
     """
     Main function to handle command line arguments
     """
-    # Check for GROQ_API_KEY
-    groq_key = os.getenv("GROQ_API_KEY")
-    if not groq_key:
-        result = {
-            "success": False,
-            "error": "GROQ_API_KEY environment variable is not set",
-            "details": "Please set the GROQ_API_KEY environment variable on your deployment platform"
-        }
-        print(json.dumps(result))
-        sys.exit(1)
-    
     if len(sys.argv) < 2:
         result = {
             "success": False,
@@ -197,6 +187,16 @@ def main():
         sys.exit(1)
     
     command = sys.argv[1]
+    
+    # Only check GROQ_API_KEY for commands that actually need it
+    if command in ["generate"] and not os.getenv("GROQ_API_KEY"):
+        result = {
+            "success": False,
+            "error": "GROQ_API_KEY environment variable is not set",
+            "details": "Please set the GROQ_API_KEY environment variable on your deployment platform"
+        }
+        print(json.dumps(result))
+        sys.exit(1)
     
     if command == "generate":
         if len(sys.argv) != 3:
@@ -222,25 +222,31 @@ def main():
             "current_dir": str(Path.cwd()),
             "script_dir": str(current_dir),
             "groq_api_key_set": bool(os.getenv("GROQ_API_KEY")),
+            "groq_api_key_length": len(os.getenv("GROQ_API_KEY", "")),
+            "environment_variables": {
+                "PATH": bool(os.getenv("PATH")),
+                "PYTHON_PATH": os.getenv("PYTHON_PATH", "not set"),
+                "NODE_ENV": os.getenv("NODE_ENV", "not set")
+            },
             "dependencies": {}
         }
         
         # Test imports
         try:
             import langchain
-            result["dependencies"]["langchain"] = "✓ Available"
+            result["dependencies"]["langchain"] = f"✓ Available - version: {getattr(langchain, '__version__', 'unknown')}"
         except ImportError as e:
             result["dependencies"]["langchain"] = f"✗ Missing: {e}"
             
         try:
             import groq
-            result["dependencies"]["groq"] = "✓ Available"
+            result["dependencies"]["groq"] = f"✓ Available - version: {getattr(groq, '__version__', 'unknown')}"
         except ImportError as e:
             result["dependencies"]["groq"] = f"✗ Missing: {e}"
             
         try:
             import chromadb
-            result["dependencies"]["chromadb"] = "✓ Available"
+            result["dependencies"]["chromadb"] = f"✓ Available - version: {getattr(chromadb, '__version__', 'unknown')}"
         except ImportError as e:
             result["dependencies"]["chromadb"] = f"✗ Missing: {e}"
             
@@ -255,6 +261,12 @@ def main():
             result["dependencies"]["portfolio"] = "✓ Available"
         except ImportError as e:
             result["dependencies"]["portfolio"] = f"✗ Missing: {e}"
+            
+        try:
+            from dotenv import load_dotenv
+            result["dependencies"]["python-dotenv"] = "✓ Available"
+        except ImportError as e:
+            result["dependencies"]["python-dotenv"] = f"✗ Missing: {e}"
     
     elif command == "skills":
         if len(sys.argv) != 3:
