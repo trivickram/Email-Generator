@@ -190,8 +190,15 @@ class Chain:
         )
         try:
             chain_email = prompt_email | self.llm
-            res = chain_email.invoke({"job_description": str(job), "link_list": links})
-            logging.info("Email generated successfully.")
+            res = chain_email.invoke({
+    "job_description": str(job),
+    "link_list": str(links)  # make sure it's a string
+})
+
+            logging.info(f"LLM raw response: {repr(res.content)}")
+            logging.info(f"🧠 Prompt Input — Job: {str(job)[:300]}")
+            logging.info(f"🧠 Prompt Input — Links: {str(links)}")
+
             if not res.content or not res.content.strip():
                 logging.warning("⚠️ Email LLM response is empty.")
                 return None
