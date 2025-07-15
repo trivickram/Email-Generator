@@ -1,0 +1,16 @@
+version: 1
+services:
+  - name: email-generator-backend
+    type: web
+    runtime: node
+    plan: free
+    buildCommand: chmod +x ./build.sh && ./build.sh
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PYTHON_PATH
+        value: /opt/render/project/src/python:/opt/render/project/src/web-app/backend/python
+    healthCheckPath: /api/health
+    domains:
+      - email-generator-backend-3p8m.onrender.com
