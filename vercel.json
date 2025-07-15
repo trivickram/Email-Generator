@@ -20,10 +20,15 @@
     },
     {
       "src": "/(.*)",
-      "dest": "/web-app/frontend/$1"
+      "dest": "/web-app/frontend/build/index.html"
     }
   ],
   "env": {
     "GROQ_API_KEY": "@groq_api_key"
+  },
+  "functions": {
+    "web-app/backend/server.js": {
+      "maxDuration": 30
+    }
   }
 }
