@@ -46,6 +46,12 @@ export const emailApi = {
     const response = await api.get('/email/status');
     return response;
   },
+
+  // Test Python environment
+  testPython: async () => {
+    const response = await api.get('/email/test-python');
+    return response;
+  },
 };
 
 export const portfolioApi = {

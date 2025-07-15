@@ -62,4 +62,23 @@ router.get('/status', (req, res) => {
   });
 });
 
+// @route   GET /api/email/test-python
+// @desc    Test Python environment and dependencies
+// @access  Public
+router.get('/test-python', async (req, res) => {
+  try {
+    const result = await EmailService.testPythonEnvironment();
+    res.json({
+      success: true,
+      data: result
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message,
+      details: process.env.NODE_ENV === 'development' ? error.stack : undefined
+    });
+  }
+});
+
 module.exports = router;
