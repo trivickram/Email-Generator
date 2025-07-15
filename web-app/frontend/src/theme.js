@@ -46,19 +46,25 @@ const theme = createTheme({
       fontSize: '3.5rem',
       fontWeight: 800,
       lineHeight: 1.1,
-      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-      WebkitBackgroundClip: 'text',
-      WebkitTextFillColor: 'transparent',
-      backgroundClip: 'text',
+      // Default gradient styling that can be overridden
+      '&.gradient-text': {
+        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        WebkitBackgroundClip: 'text',
+        WebkitTextFillColor: 'transparent',
+        backgroundClip: 'text',
+      }
     },
     h2: {
       fontSize: '2.75rem',
       fontWeight: 700,
       lineHeight: 1.2,
-      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-      WebkitBackgroundClip: 'text',
-      WebkitTextFillColor: 'transparent',
-      backgroundClip: 'text',
+      // Default gradient styling that can be overridden
+      '&.gradient-text': {
+        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        WebkitBackgroundClip: 'text',
+        WebkitTextFillColor: 'transparent',
+        backgroundClip: 'text',
+      }
     },
     h3: {
       fontSize: '2.25rem',

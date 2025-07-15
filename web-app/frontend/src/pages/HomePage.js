@@ -181,6 +181,9 @@ const HomePage = () => {
                 color: 'white',
                 mb: 2,
                 textShadow: '0 4px 20px rgba(0,0,0,0.3)',
+                background: 'none',
+                WebkitTextFillColor: 'white',
+                textAlign: 'center',
               }}
             >
               🚀 AI Cold Email Generator
