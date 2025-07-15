@@ -42,38 +42,58 @@ const FeatureCard = ({ icon, title, description, delay }) => (
     style={{ height: '100%' }}
   >
     <Card sx={{
-      background: 'rgba(255, 255, 255, 0.05)',
-      backdropFilter: 'blur(20px)',
-      border: '1px solid rgba(255, 255, 255, 0.1)',
-      borderRadius: '20px',
-      p: 3,
+      background: 'rgba(255, 255, 255, 0.03)',
+      backdropFilter: 'blur(30px)',
+      border: '0.5px solid rgba(255, 255, 255, 0.08)',
+      borderRadius: '24px',
+      p: { xs: 3, md: 4 },
       textAlign: 'center',
       height: '100%',
       display: 'flex',
       flexDirection: 'column',
-      minHeight: '200px',
-      transition: 'all 0.3s ease',
+      minHeight: '240px',
+      transition: 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+      cursor: 'pointer',
       '&:hover': {
-        transform: 'translateY(-8px)',
-        boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
+        transform: 'translateY(-12px) scale(1.02)',
+        background: 'rgba(255, 255, 255, 0.06)',
+        border: '0.5px solid rgba(255, 255, 255, 0.15)',
+        boxShadow: '0 32px 64px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05)',
       }
     }}>
       <Box sx={{
-        background: 'rgba(255, 255, 255, 0.1)',
-        borderRadius: '16px',
-        p: 2,
+        background: 'rgba(255, 255, 255, 0.08)',
+        borderRadius: '20px',
+        p: 2.5,
         display: 'inline-flex',
-        mb: 2,
+        mb: 3,
         alignSelf: 'center',
-        backdropFilter: 'blur(10px)',
-        border: '1px solid rgba(255, 255, 255, 0.15)',
+        backdropFilter: 'blur(20px)',
+        border: '0.5px solid rgba(255, 255, 255, 0.12)',
+        transition: 'all 0.3s ease',
+        '&:hover': {
+          background: 'rgba(255, 255, 255, 0.12)',
+          transform: 'scale(1.05)',
+        }
       }}>
         {icon}
       </Box>
-      <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
+      <Typography variant="h6" sx={{ 
+        fontWeight: 600, 
+        mb: 2, 
+        color: 'white',
+        fontSize: '1.25rem',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif',
+      }}>
         {title}
       </Typography>
-      <Typography variant="body2" color="text.secondary" sx={{ flexGrow: 1 }}>
+      <Typography variant="body2" sx={{ 
+        flexGrow: 1,
+        color: 'rgba(255, 255, 255, 0.7)',
+        fontSize: '1rem',
+        lineHeight: 1.5,
+        fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif',
+      }}>
         {description}
       </Typography>
     </Card>
@@ -213,25 +233,29 @@ const HomePage = () => {
               <Typography 
                 variant="h1" 
                 sx={{ 
-                  fontSize: { xs: '2.5rem', md: '4.5rem', lg: '5.5rem' },
-                  fontWeight: 900,
+                  fontSize: { xs: '3rem', md: '5rem', lg: '6.5rem' },
+                  fontWeight: 600,
                   color: 'white',
-                  mb: 2,
-                  background: 'linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.9) 50%, #ffffff 100%)',
+                  mb: 3,
+                  background: 'linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.95) 30%, rgba(255, 255, 255, 0.85) 70%, #ffffff 100%)',
                   backgroundClip: 'text',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
-                  textShadow: '0 4px 20px rgba(0,0,0,0.5)',
-                  letterSpacing: '-0.02em',
+                  textShadow: '0 8px 32px rgba(255,255,255,0.1)',
+                  letterSpacing: { xs: '-0.02em', md: '-0.03em' },
+                  lineHeight: { xs: 1.1, md: 1.05 },
+                  fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif',
                 }}
               >
                 AI Cold Email
                 <Box component="span" sx={{ 
                   display: 'block',
-                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.6) 100%)',
+                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 50%, rgba(255, 255, 255, 0.85) 100%)',
                   backgroundClip: 'text',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
+                  fontWeight: 300,
+                  mt: 1,
                 }}>
                   Generator
                 </Box>
@@ -246,17 +270,19 @@ const HomePage = () => {
               <Typography 
                 variant="h5" 
                 sx={{ 
-                  maxWidth: 900, 
+                  maxWidth: 800, 
                   mx: 'auto',
-                  color: 'rgba(255, 255, 255, 0.8)',
-                  fontSize: { xs: '1.1rem', md: '1.4rem' },
-                  lineHeight: 1.6,
-                  mb: 6,
-                  fontWeight: 400
+                  color: 'rgba(255, 255, 255, 0.75)',
+                  fontSize: { xs: '1.125rem', md: '1.3rem', lg: '1.4rem' },
+                  lineHeight: { xs: 1.5, md: 1.4 },
+                  mb: 8,
+                  fontWeight: 400,
+                  fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif',
+                  letterSpacing: '0.01em',
                 }}
               >
                 Transform any job posting into a personalized cold email using cutting-edge AI. 
-                <Box component="span" sx={{ color: 'rgba(99, 102, 241, 0.9)', fontWeight: 600 }}>
+                <Box component="span" sx={{ color: 'rgba(255, 255, 255, 0.95)', fontWeight: 500 }}>
                   Our intelligent system
                 </Box> analyzes requirements and crafts compelling outreach messages.
               </Typography>
@@ -309,19 +335,19 @@ const HomePage = () => {
               transition={{ duration: 0.8, delay: 0.6 }}
             >
               <Box sx={{
-                background: 'rgba(255, 255, 255, 0.03)',
-                backdropFilter: 'blur(30px)',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
+                background: 'rgba(255, 255, 255, 0.02)',
+                backdropFilter: 'blur(40px)',
+                border: '0.5px solid rgba(255, 255, 255, 0.06)',
                 borderRadius: '32px',
-                boxShadow: '0 32px 64px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+                boxShadow: '0 32px 64px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08)',
                 position: 'relative',
                 overflow: 'hidden',
-                transition: 'all 0.4s ease',
+                transition: 'all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
                 '&:hover': {
-                  background: 'rgba(255, 255, 255, 0.05)',
-                  border: '1px solid rgba(255, 255, 255, 0.12)',
-                  transform: 'translateY(-4px)',
-                  boxShadow: '0 40px 80px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
+                  background: 'rgba(255, 255, 255, 0.04)',
+                  border: '0.5px solid rgba(255, 255, 255, 0.12)',
+                  transform: 'translateY(-8px)',
+                  boxShadow: '0 48px 96px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.12)',
                 },
                 '&::before': {
                   content: '""',
@@ -385,12 +411,13 @@ const HomePage = () => {
                   <Typography 
                     variant="h3" 
                     sx={{ 
-                      fontWeight: 800,
+                      fontWeight: 600,
                       textAlign: 'center',
                       mb: 2,
                       color: 'white',
-                      fontSize: { xs: '1.8rem', md: '2.2rem' },
-                      letterSpacing: '-0.01em',
+                      fontSize: { xs: '2rem', md: '2.5rem' },
+                      letterSpacing: '-0.02em',
+                      fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif',
                     }}
                   >
                     Drop Your Link
@@ -400,12 +427,13 @@ const HomePage = () => {
                     variant="body1" 
                     sx={{ 
                       textAlign: 'center',
-                      mb: 5,
-                      color: 'rgba(255, 255, 255, 0.6)',
-                      fontSize: '1.1rem',
-                      lineHeight: 1.7,
-                      maxWidth: '400px',
-                      mx: 'auto'
+                      mb: 6,
+                      color: 'rgba(255, 255, 255, 0.7)',
+                      fontSize: '1.125rem',
+                      lineHeight: 1.6,
+                      maxWidth: '420px',
+                      mx: 'auto',
+                      fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif',
                     }}
                   >
                     Paste any job posting URL and watch AI craft your perfect cold email in seconds
@@ -475,14 +503,24 @@ const HomePage = () => {
                           </motion.div>
                         )}
                         sx={{
-                          py: 2.5,
-                          fontSize: '1.3rem',
-                          fontWeight: 700,
-                          borderRadius: '24px',
+                          py: 3,
+                          fontSize: '1.125rem',
+                          fontWeight: 600,
+                          borderRadius: '28px',
                           textTransform: 'none',
-                          letterSpacing: '0.5px',
+                          letterSpacing: '0.01em',
                           position: 'relative',
                           overflow: 'hidden',
+                          fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif',
+                          background: 'rgba(255, 255, 255, 0.08)',
+                          backdropFilter: 'blur(20px)',
+                          border: '0.5px solid rgba(255, 255, 255, 0.15)',
+                          transition: 'all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+                          '&:hover': {
+                            background: 'rgba(255, 255, 255, 0.12)',
+                            transform: 'translateY(-2px)',
+                            boxShadow: '0 20px 40px rgba(0, 0, 0, 0.4)',
+                          },
                           '&::before': {
                             content: '""',
                             position: 'absolute',
@@ -490,8 +528,8 @@ const HomePage = () => {
                             left: '-100%',
                             width: '100%',
                             height: '100%',
-                            background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent)',
-                            transition: 'left 0.6s ease',
+                            background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent)',
+                            transition: 'left 0.7s ease',
                           },
                           '&:hover::before': {
                             left: '100%',
@@ -560,19 +598,19 @@ const HomePage = () => {
               {result ? (
                 <Fade in={!!result}>
                   <Box sx={{
-                    background: 'rgba(255, 255, 255, 0.03)',
-                    backdropFilter: 'blur(30px)',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    background: 'rgba(255, 255, 255, 0.02)',
+                    backdropFilter: 'blur(40px)',
+                    border: '0.5px solid rgba(255, 255, 255, 0.06)',
                     borderRadius: '32px',
-                    boxShadow: '0 32px 64px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+                    boxShadow: '0 32px 64px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08)',
                     position: 'relative',
                     overflow: 'hidden',
-                    transition: 'all 0.4s ease',
+                    transition: 'all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
                     '&:hover': {
-                      background: 'rgba(255, 255, 255, 0.05)',
-                      border: '1px solid rgba(255, 255, 255, 0.12)',
-                      transform: 'translateY(-4px)',
-                      boxShadow: '0 40px 80px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
+                      background: 'rgba(255, 255, 255, 0.04)',
+                      border: '0.5px solid rgba(255, 255, 255, 0.12)',
+                      transform: 'translateY(-8px)',
+                      boxShadow: '0 48px 96px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.12)',
                     },
                     '&::before': {
                       content: '""',
@@ -618,10 +656,11 @@ const HomePage = () => {
                         <Typography 
                           variant="h3" 
                           sx={{ 
-                            fontWeight: 800,
+                            fontWeight: 600,
                             color: 'white',
-                            fontSize: { xs: '1.8rem', md: '2.2rem' },
-                            letterSpacing: '-0.01em',
+                            fontSize: { xs: '2rem', md: '2.5rem' },
+                            letterSpacing: '-0.02em',
+                            fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif',
                           }}
                         >
                           Email Ready! ✨
@@ -841,9 +880,9 @@ const HomePage = () => {
                 </Fade>
               ) : (
                 <Box sx={{
-                  background: 'rgba(255, 255, 255, 0.02)',
-                  backdropFilter: 'blur(30px)',
-                  border: '2px dashed rgba(255, 255, 255, 0.1)',
+                  background: 'rgba(255, 255, 255, 0.015)',
+                  backdropFilter: 'blur(40px)',
+                  border: '1px dashed rgba(255, 255, 255, 0.08)',
                   borderRadius: '32px',
                   minHeight: '600px',
                   display: 'flex',
@@ -851,10 +890,11 @@ const HomePage = () => {
                   justifyContent: 'center',
                   position: 'relative',
                   overflow: 'hidden',
-                  transition: 'all 0.4s ease',
+                  transition: 'all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
                   '&:hover': {
-                    border: '2px dashed rgba(255, 255, 255, 0.15)',
-                    background: 'rgba(255, 255, 255, 0.03)',
+                    border: '1px dashed rgba(255, 255, 255, 0.15)',
+                    background: 'rgba(255, 255, 255, 0.025)',
+                    transform: 'translateY(-4px)',
                   },
                   '&::before': {
                     content: '""',
@@ -896,10 +936,11 @@ const HomePage = () => {
                       variant="h4" 
                       sx={{ 
                         color: 'white', 
-                        mb: 2,
-                        fontWeight: 800,
-                        fontSize: { xs: '1.8rem', md: '2.2rem' },
-                        letterSpacing: '-0.01em'
+                        mb: 3,
+                        fontWeight: 600,
+                        fontSize: { xs: '2rem', md: '2.5rem' },
+                        letterSpacing: '-0.02em',
+                        fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif',
                       }}
                     >
                       Your AI-Generated Email
@@ -908,11 +949,12 @@ const HomePage = () => {
                     <Typography 
                       variant="h6" 
                       sx={{ 
-                        color: 'rgba(255, 255, 255, 0.6)',
-                        mb: 4,
-                        fontSize: '1.2rem',
-                        lineHeight: 1.6,
-                        fontWeight: 400
+                        color: 'rgba(255, 255, 255, 0.7)',
+                        mb: 6,
+                        fontSize: '1.25rem',
+                        lineHeight: 1.5,
+                        fontWeight: 400,
+                        fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif',
                       }}
                     >
                       Will appear here like magic ✨
@@ -928,15 +970,24 @@ const HomePage = () => {
                       <Box sx={{
                         display: 'inline-flex',
                         alignItems: 'center',
-                        gap: 3,
-                        px: 4,
-                        py: 2,
-                        background: 'rgba(255, 255, 255, 0.05)',
-                        backdropFilter: 'blur(15px)',
-                        borderRadius: '20px',
-                        border: '1px solid rgba(255, 255, 255, 0.1)'
+                        gap: 4,
+                        px: 5,
+                        py: 3,
+                        background: 'rgba(255, 255, 255, 0.06)',
+                        backdropFilter: 'blur(20px)',
+                        borderRadius: '24px',
+                        border: '0.5px solid rgba(255, 255, 255, 0.12)',
+                        transition: 'all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+                        '&:hover': {
+                          background: 'rgba(255, 255, 255, 0.1)',
+                          transform: 'translateY(-2px)',
+                        }
                       }}>
-                        <Typography variant="body1" sx={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '1.1rem' }}>
+                        <Typography variant="body1" sx={{ 
+                          color: 'rgba(255, 255, 255, 0.8)', 
+                          fontSize: '1.125rem',
+                          fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif',
+                        }}>
                           Enter a job URL to get started
                         </Typography>
                         <motion.div
