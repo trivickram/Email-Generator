@@ -8,8 +8,5 @@
         "distDir": "web-app/frontend/build"
       }
     }
-  ],
-  "env": {
-    "GROQ_API_KEY": "@groq_api_key"
-  }
+  ]
 }
