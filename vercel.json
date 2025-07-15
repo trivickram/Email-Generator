@@ -9,11 +9,6 @@
       }
     }
   ],
-  "functions": {
-    "api/generate-email.js": {
-      "maxDuration": 30
-    }
-  },
   "env": {
     "GROQ_API_KEY": "@groq_api_key"
   }
