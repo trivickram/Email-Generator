@@ -17,10 +17,20 @@ else
     exit 1
 fi
 
-# ✅ Install Python dependencies
+# ✅ Set up a virtual environment
+echo "🧪 Creating Python virtual environment..."
+$PYTHON_CMD -m venv venv || {
+    echo "❌ Failed to create virtualenv"
+    exit 1
+}
+
+# ✅ Activate the virtual environment
+source venv/bin/activate
+
+# ✅ Install Python dependencies inside the virtual environment
 echo "📦 Installing Python dependencies..."
-$PYTHON_CMD -m pip install --upgrade pip
-$PYTHON_CMD -m pip install -r requirements.txt || {
+pip install --upgrade pip
+pip install -r requirements.txt || {
     echo "❌ Failed to install Python dependencies"
     exit 1
 }
