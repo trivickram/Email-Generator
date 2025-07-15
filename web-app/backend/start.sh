@@ -6,7 +6,7 @@ echo "🚀 Starting Email Generator Backend..."
 # Set Python path
 export PYTHONPATH="${PYTHONPATH}:$(pwd)/python"
 
-# Verify Python setup one more time
+# Find python executable
 echo "🔍 Final Python verification..."
 if command -v python3 &> /dev/null; then
     PYTHON_CMD="python3"
@@ -17,7 +17,15 @@ else
     exit 1
 fi
 
-# Quick test
+# ✅ Install Python dependencies
+echo "📦 Installing Python dependencies..."
+$PYTHON_CMD -m pip install --upgrade pip
+$PYTHON_CMD -m pip install -r requirements.txt || {
+    echo "❌ Failed to install Python dependencies"
+    exit 1
+}
+
+# ✅ Check if critical packages are available
 $PYTHON_CMD -c "
 try:
     import langchain_groq, langchain_core, dotenv

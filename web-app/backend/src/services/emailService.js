@@ -70,9 +70,133 @@ class EmailService {
   }
 
   /**
-   * Fallback to simple email generation
+   * Fallback to simple email generation with multiple fallback levels
    */
   async trySimpleGeneration(jobUrl, skills) {
+    // Try no-dependency generator first
+    try {
+      return await this.tryNoDepsGeneration(jobUrl, skills);
+    } catch (error) {
+      console.log('No-deps generator failed, using JavaScript fallback');
+      return this.generateJavaScriptFallback(jobUrl, skills);
+    }
+  }
+
+  /**
+   * Try the no-dependency Python generator
+   */
+  async tryNoDepsGeneration(jobUrl, skills) {
+    return new Promise((resolve, reject) => {
+      const pythonScript = path.join(this.pythonDir, 'no_deps_generator.py');
+      
+      const args = [pythonScript, 'generate', jobUrl];
+      if (skills && skills.length > 0) {
+        args.push(JSON.stringify(skills));
+      }
+      
+      const pythonProcess = spawn(this.pythonPath, args, {
+        timeout: 15000 // 15 second timeout
+      });
+      
+      let dataString = '';
+      let errorString = '';
+
+      pythonProcess.stdout.on('data', (data) => {
+        dataString += data.toString();
+      });
+
+      pythonProcess.stderr.on('data', (data) => {
+        errorString += data.toString();
+      });
+
+      pythonProcess.on('close', (code) => {
+        if (code !== 0) {
+          reject(new Error(`No-deps generator failed with code ${code}: ${errorString}`));
+          return;
+        }
+
+        try {
+          const result = JSON.parse(dataString);
+          if (result.success) {
+            resolve({ ...result, method: 'no_dependencies' });
+          } else {
+            reject(new Error(result.error || 'No-deps generator returned error'));
+          }
+        } catch (parseError) {
+          reject(new Error('Failed to parse no-deps generator result'));
+        }
+      });
+
+      pythonProcess.on('error', (error) => {
+        reject(new Error(`No-deps generator spawn error: ${error.message}`));
+      });
+    });
+  }
+
+  /**
+   * Final JavaScript fallback - always works
+   */
+  generateJavaScriptFallback(jobUrl, skills = []) {
+    const company = this.extractCompanyFromUrl(jobUrl);
+    const skillsText = skills.length > 0 ? skills.slice(0, 3).join(', ') : 'software development';
+    
+    const email = `Dear ${company} Hiring Team,
+
+I hope this email finds you well. I am writing to express my strong interest in the open position at ${company}.
+
+With my experience in ${skillsText}, I am confident that I would be a valuable addition to your team. I am particularly excited about this opportunity because:
+
+• My technical skills align well with your requirements
+• I am passionate about delivering high-quality solutions  
+• I thrive in collaborative environments and enjoy tackling challenging problems
+
+I would welcome the opportunity to discuss how my background and enthusiasm can contribute to ${company}'s continued success. I am available for an interview at your convenience.
+
+Thank you for considering my application. I look forward to hearing from you.
+
+Best regards,
+[Your Name]
+[Your Email]
+[Your Phone]`;
+
+    return {
+      success: true,
+      email: email,
+      subject: `Application for Position at ${company}`,
+      company: company,
+      skills_used: skills.slice(0, 3),
+      generated_at: new Date().toISOString(),
+      method: 'javascript_fallback',
+      job_url: jobUrl
+    };
+  }
+
+  /**
+   * Extract company name from URL
+   */
+  extractCompanyFromUrl(url) {
+    try {
+      const urlObj = new URL(url);
+      const hostname = urlObj.hostname.toLowerCase();
+      
+      if (hostname.includes('linkedin')) return 'LinkedIn Company';
+      if (hostname.includes('indeed')) return 'Indeed Company';
+      if (hostname.includes('glassdoor')) return 'Glassdoor Company';
+      if (hostname.includes('monster')) return 'Monster Company';
+      if (hostname.includes('ziprecruiter')) return 'ZipRecruiter Company';
+      
+      // Extract domain name
+      const domain = hostname.replace('www.', '').replace('.com', '').replace('.org', '');
+      return domain.charAt(0).toUpperCase() + domain.slice(1) + ' Company';
+    } catch {
+      return 'The Company';
+    }
+  }
+
+  /**
+   * Original simple generation method (kept for backward compatibility)
+   */
+  async tryOriginalSimpleGeneration(jobUrl, skills) {
     return new Promise((resolve, reject) => {
       const pythonScript = path.join(this.pythonDir, 'simple_email_generator.py');
       const skillsArg = JSON.stringify(skills);
