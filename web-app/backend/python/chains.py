@@ -192,7 +192,12 @@ class Chain:
             chain_email = prompt_email | self.llm
             res = chain_email.invoke({"job_description": str(job), "link_list": links})
             logging.info("Email generated successfully.")
+            if not res.content or not res.content.strip():
+                logging.warning("⚠️ Email LLM response is empty.")
+                return None
+
             return res.content
+
         except Exception as e:
             if "401" in str(e) or "authentication" in str(e).lower():
                 raise EnvironmentError("API Authentication failed. Please check your Groq API key.")
