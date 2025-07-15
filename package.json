@@ -7,7 +7,7 @@
     "start": "cd web-app/backend && npm start",
     "build": "cd web-app/frontend && npm install && npm run build",
     "install-deps": "cd web-app/backend && npm install && cd ../frontend && npm install",
-    "heroku-postbuild": "npm run install-deps && npm run build"
+    "dev": "cd web-app/frontend && npm start"
   },
   "engines": {
     "node": ">=18.0.0",

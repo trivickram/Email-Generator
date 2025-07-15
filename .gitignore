@@ -105,3 +105,4 @@ chroma_cache/
 # Temporary files
 *.tmp
 *.temp
+.vercel
