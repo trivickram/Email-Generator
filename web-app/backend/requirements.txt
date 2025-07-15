@@ -1,5 +1,7 @@
 langchain
 langchain-community
+langchain-core
+langchain-groq
 groq
 beautifulsoup4
 requests
@@ -7,3 +9,4 @@ chromadb
 python-dotenv
 pandas
 numpy
+lxml

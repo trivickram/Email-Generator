@@ -3,7 +3,7 @@ const path = require('path');
 
 class EmailService {
   constructor() {
-    this.pythonPath = process.env.PYTHON_PATH || process.platform === 'win32' ? 'python' : 'python3';
+    this.pythonPath = process.env.PYTHON_PATH || (process.platform === 'win32' ? 'python' : 'python3');
     this.pythonDir = path.join(__dirname, '..', '..', 'python');
   }
 
