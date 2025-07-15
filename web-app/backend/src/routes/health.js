@@ -1,4 +1,6 @@
 const express = require('express');
+const { spawn } = require('child_process');
+const path = require('path');
 const router = express.Router();
 
 // @route   GET /api/health
@@ -37,6 +39,57 @@ router.get('/detailed', (req, res) => {
   };
 
   res.json(healthCheck);
+});
+
+// @route   GET /api/health/python
+// @desc    Test Python environment and dependencies
+// @access  Public
+router.get('/python', (req, res) => {
+  const pythonScript = path.join(__dirname, '..', '..', 'python', 'test_imports.py');
+  
+  const python = spawn('python3', [pythonScript], {
+    cwd: path.join(__dirname, '..', '..'),
+    stdio: ['pipe', 'pipe', 'pipe']
+  });
+
+  let stdout = '';
+  let stderr = '';
+
+  python.stdout.on('data', (data) => {
+    stdout += data.toString();
+  });
+
+  python.stderr.on('data', (data) => {
+    stderr += data.toString();
+  });
+
+  python.on('close', (code) => {
+    try {
+      const result = JSON.parse(stdout);
+      res.json({
+        success: code === 0,
+        python_test: result,
+        exit_code: code,
+        stderr: stderr || null
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: 'Failed to parse Python test results',
+        stdout,
+        stderr,
+        exit_code: code
+      });
+    }
+  });
+
+  python.on('error', (error) => {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to execute Python test',
+      details: error.message
+    });
+  });
 });
 
 module.exports = router;
