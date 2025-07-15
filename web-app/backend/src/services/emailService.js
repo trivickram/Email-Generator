@@ -8,11 +8,25 @@ class EmailService {
   }
 
   /**
-   * Generate cold email from job URL
+   * Generate cold email from job URL with fallback
    * @param {string} jobUrl - The job posting URL
+   * @param {Array} skills - Optional skills array
    * @returns {Promise<object>} Generated email data
    */
-  async generateColdEmail(jobUrl) {
+  async generateColdEmail(jobUrl, skills = []) {
+    // Try advanced generator first, fallback to simple one
+    try {
+      return await this.tryAdvancedGeneration(jobUrl);
+    } catch (error) {
+      console.log('Advanced generation failed, trying simple fallback...');
+      return await this.trySimpleGeneration(jobUrl, skills);
+    }
+  }
+
+  /**
+   * Try the advanced AI-powered email generation
+   */
+  async tryAdvancedGeneration(jobUrl) {
     return new Promise((resolve, reject) => {
       const pythonScript = path.join(this.pythonDir, 'email_api.py');
       
@@ -30,28 +44,78 @@ class EmailService {
       });
 
       pythonProcess.on('close', (code) => {
-        console.log(`Python process exited with code: ${code}`);
-        console.log(`Python stdout: ${dataString}`);
-        console.log(`Python stderr: ${errorString}`);
+        console.log(`📧 Advanced generator exited with code: ${code}`);
         
         if (code !== 0) {
-          console.error(`Python script error: ${errorString}`);
-          reject(new Error(`Python script failed with code ${code}: ${errorString}`));
+          console.log(`⚠️ Advanced generator failed: ${errorString}`);
+          reject(new Error(`Advanced generator failed with code ${code}: ${errorString}`));
           return;
         }
 
         try {
           const result = JSON.parse(dataString);
+          console.log('✅ Advanced generation successful');
           resolve(result);
         } catch (parseError) {
-          console.error('Failed to parse Python output:', dataString);
-          reject(new Error('Failed to parse email generation result'));
+          console.error('Failed to parse advanced generator output:', dataString);
+          reject(new Error('Failed to parse advanced generation result'));
         }
       });
 
       pythonProcess.on('error', (error) => {
-        console.error('Failed to start Python process:', error);
-        reject(new Error('Failed to start email generation process'));
+        console.error('Advanced generator spawn error:', error.message);
+        reject(error);
+      });
+    });
+  }
+
+  /**
+   * Fallback to simple email generation
+   */
+  async trySimpleGeneration(jobUrl, skills) {
+    return new Promise((resolve, reject) => {
+      const pythonScript = path.join(this.pythonDir, 'simple_email_generator.py');
+      const skillsArg = JSON.stringify(skills);
+      
+      const pythonProcess = spawn(this.pythonPath, [pythonScript, 'generate', jobUrl, skillsArg]);
+      
+      let dataString = '';
+      let errorString = '';
+
+      pythonProcess.stdout.on('data', (data) => {
+        dataString += data.toString();
+      });
+
+      pythonProcess.stderr.on('data', (data) => {
+        errorString += data.toString();
+      });
+
+      pythonProcess.on('close', (code) => {
+        console.log(`📧 Simple generator exited with code: ${code}`);
+        
+        if (code !== 0) {
+          console.error(`❌ Simple generator failed: ${errorString}`);
+          reject(new Error(`Simple generator failed with code ${code}: ${errorString}`));
+          return;
+        }
+
+        try {
+          const result = JSON.parse(dataString);
+          console.log('✅ Simple generation successful');
+          resolve({
+            ...result,
+            fallback_used: true,
+            message: "Generated using simple template (AI features temporarily unavailable)"
+          });
+        } catch (parseError) {
+          console.error('Failed to parse simple generator output:', dataString);
+          reject(new Error('Failed to parse simple generation result'));
+        }
+      });
+
+      pythonProcess.on('error', (error) => {
+        console.error('Simple generator spawn error:', error.message);
+        reject(error);
       });
     });
   }

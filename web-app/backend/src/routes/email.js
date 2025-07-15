@@ -27,12 +27,13 @@ router.post('/generate', validateEmailRequest, async (req, res) => {
       });
     }
 
-    const { jobUrl } = req.body;
+    const { jobUrl, skills } = req.body;
     
     console.log(`📧 Generating email for job URL: ${jobUrl}`);
+    console.log(`🎯 Skills provided: ${skills ? JSON.stringify(skills) : 'none'}`);
 
-    // Call the email service
-    const result = await EmailService.generateColdEmail(jobUrl);
+    // Call the email service with skills
+    const result = await EmailService.generateColdEmail(jobUrl, skills || []);
 
     res.json({
       success: true,
