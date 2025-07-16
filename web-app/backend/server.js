@@ -57,7 +57,20 @@ app.options('*', cors());
 // Logging
 app.use(morgan('combined'));
 
-// Routes
+// Move the root route BEFORE the catch-all routes
+app.get('/', (req, res) => {
+  res.json({  
+    message: 'Welcome to the Cold Email Generator API',
+    version: '1.0.0',
+    environment: process.env.NODE_ENV || 'development'
+  });
+});
+
+// Add this route before your existing routes
+app.use('/email', require('./src/routes/email')); // This creates /email/generate
+app.use('/portfolio', require('./src/routes/portfolio')); // This creates /portfolio routes
+
+// Keep your existing API routes too
 app.use('/api/email', require('./src/routes/email'));
 app.use('/api/portfolio', require('./src/routes/portfolio'));
 app.use('/api/health', require('./src/routes/health'));
@@ -80,7 +93,7 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
   });
 } else {
-  // 404 handler for development
+  // 404 handler for development - THIS SHOULD BE LAST
   app.use('*', (req, res) => {
     res.status(404).json({ error: 'Route not found' });
   });
