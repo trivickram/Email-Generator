@@ -108,8 +108,23 @@ GROQ_API_KEY=your_groq_api_key_here`,
   ];
 
   return (
-    <Box sx={{ minHeight: '80vh', py: 4 }}>
-      <Container maxWidth="lg">
+    <Box sx={{ 
+      minHeight: '100vh', 
+      py: 4,
+      background: 'linear-gradient(135deg, #000000 0%, #0a0a0a 50%, #000000 100%)',
+      position: 'relative',
+      '&::before': {
+        content: '""',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        background: 'radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.1) 0%, transparent 50%)',
+        pointerEvents: 'none',
+      }
+    }}>
+      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
         {/* Header */}
         <Box sx={{ textAlign: 'center', mb: 6 }}>
           <Typography variant="h2" component="h1" gutterBottom>
@@ -125,7 +140,20 @@ GROQ_API_KEY=your_groq_api_key_here`,
           <Typography variant="h3" gutterBottom>
             Quick Start
           </Typography>
-          <Alert severity="info" sx={{ mb: 3 }}>
+          <Alert 
+            severity="info" 
+            sx={{ 
+              mb: 3,
+              background: 'rgba(59, 130, 246, 0.1)',
+              backdropFilter: 'blur(20px)',
+              border: '1px solid rgba(59, 130, 246, 0.2)',
+              borderRadius: '12px',
+              color: '#93c5fd',
+              '& .MuiAlert-icon': {
+                color: '#3b82f6'
+              }
+            }}
+          >
             <Typography variant="body1">
               <strong>Prerequisites:</strong> Node.js 16+, Python 3.8+, Git
             </Typography>
@@ -134,7 +162,24 @@ GROQ_API_KEY=your_groq_api_key_here`,
           <Grid container spacing={3}>
             {setupSteps.map((step, index) => (
               <Grid item xs={12} md={6} key={index}>
-                <Card elevation={2} sx={{ height: '100%' }}>
+                <Card 
+                  elevation={0} 
+                  sx={{ 
+                    height: '100%',
+                    background: 'rgba(255, 255, 255, 0.02)',
+                    backdropFilter: 'blur(20px)',
+                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    borderRadius: '16px',
+                    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      background: 'rgba(255, 255, 255, 0.04)',
+                      border: '1px solid rgba(255, 255, 255, 0.12)',
+                      transform: 'translateY(-2px)',
+                      boxShadow: '0 12px 48px rgba(0, 0, 0, 0.4)',
+                    }
+                  }}
+                >
                   <CardContent>
                     <Typography variant="h6" gutterBottom color="primary">
                       {step.title}
@@ -146,13 +191,27 @@ GROQ_API_KEY=your_groq_api_key_here`,
                       elevation={0} 
                       sx={{ 
                         p: 2, 
-                        bgcolor: theme.palette.grey[100],
+                        background: 'rgba(255, 255, 255, 0.02)',
+                        backdropFilter: 'blur(20px)',
+                        border: '1px solid rgba(255, 255, 255, 0.08)',
+                        borderRadius: '12px',
                         fontFamily: 'monospace',
                         fontSize: '0.85rem',
-                        overflow: 'auto'
+                        overflow: 'auto',
+                        color: '#e2e8f0',
+                        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
+                        '&:hover': {
+                          background: 'rgba(255, 255, 255, 0.04)',
+                          border: '1px solid rgba(255, 255, 255, 0.12)',
+                        }
                       }}
                     >
-                      <pre style={{ margin: 0, whiteSpace: 'pre-wrap' }}>
+                      <pre style={{ 
+                        margin: 0, 
+                        whiteSpace: 'pre-wrap',
+                        color: '#e2e8f0',
+                        fontFamily: '"Fira Code", "Consolas", monospace'
+                      }}>
                         {step.code}
                       </pre>
                     </Paper>
@@ -171,7 +230,25 @@ GROQ_API_KEY=your_groq_api_key_here`,
           <Grid container spacing={3}>
             {architectureComponents.map((component, index) => (
               <Grid item xs={12} sm={6} md={3} key={index}>
-                <Paper elevation={2} sx={{ p: 3, height: '100%' }}>
+                <Paper 
+                  elevation={0} 
+                  sx={{ 
+                    p: 3, 
+                    height: '100%',
+                    background: 'rgba(255, 255, 255, 0.02)',
+                    backdropFilter: 'blur(20px)',
+                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    borderRadius: '16px',
+                    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      background: 'rgba(255, 255, 255, 0.04)',
+                      border: '1px solid rgba(255, 255, 255, 0.12)',
+                      transform: 'translateY(-2px)',
+                      boxShadow: '0 12px 48px rgba(0, 0, 0, 0.4)',
+                    }
+                  }}
+                >
                   <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                     <CodeIcon color="primary" sx={{ mr: 1 }} />
                     <Typography variant="h6">
@@ -188,6 +265,16 @@ GROQ_API_KEY=your_groq_api_key_here`,
                         label={tech} 
                         size="small" 
                         variant="outlined"
+                        sx={{
+                          background: 'rgba(99, 102, 241, 0.1)',
+                          border: '1px solid rgba(99, 102, 241, 0.3)',
+                          color: '#a5b4fc',
+                          backdropFilter: 'blur(10px)',
+                          '&:hover': {
+                            background: 'rgba(99, 102, 241, 0.2)',
+                            border: '1px solid rgba(99, 102, 241, 0.5)',
+                          }
+                        }}
                       />
                     ))}
                   </Box>
@@ -207,12 +294,47 @@ GROQ_API_KEY=your_groq_api_key_here`,
           </Typography>
           
           {apiEndpoints.map((api, index) => (
-            <Paper key={index} elevation={1} sx={{ p: 3, mb: 2 }}>
+            <Paper 
+              key={index} 
+              elevation={0} 
+              sx={{ 
+                p: 3, 
+                mb: 2,
+                background: 'rgba(255, 255, 255, 0.02)',
+                backdropFilter: 'blur(20px)',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
+                borderRadius: '16px',
+                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  background: 'rgba(255, 255, 255, 0.04)',
+                  border: '1px solid rgba(255, 255, 255, 0.12)',
+                  transform: 'translateY(-2px)',
+                  boxShadow: '0 12px 48px rgba(0, 0, 0, 0.4)',
+                }
+              }}
+            >
               <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                 <Chip 
                   label={api.method} 
                   color={api.method === 'GET' ? 'success' : 'primary'}
-                  sx={{ mr: 2 }}
+                  sx={{ 
+                    mr: 2,
+                    background: api.method === 'GET' 
+                      ? 'rgba(16, 185, 129, 0.15)' 
+                      : 'rgba(99, 102, 241, 0.15)',
+                    backdropFilter: 'blur(10px)',
+                    border: api.method === 'GET' 
+                      ? '1px solid rgba(16, 185, 129, 0.3)' 
+                      : '1px solid rgba(99, 102, 241, 0.3)',
+                    color: api.method === 'GET' ? '#34d399' : '#a5b4fc',
+                    fontWeight: 600,
+                    '&:hover': {
+                      background: api.method === 'GET' 
+                        ? 'rgba(16, 185, 129, 0.25)' 
+                        : 'rgba(99, 102, 241, 0.25)',
+                    }
+                  }}
                 />
                 <Typography variant="h6" component="code" sx={{ fontFamily: 'monospace' }}>
                   {api.endpoint}
@@ -227,8 +349,24 @@ GROQ_API_KEY=your_groq_api_key_here`,
                   <Typography variant="subtitle2" gutterBottom>
                     Request Body:
                   </Typography>
-                  <Paper elevation={0} sx={{ p: 2, bgcolor: theme.palette.grey[100] }}>
-                    <pre style={{ margin: 0, fontSize: '0.85rem' }}>
+                  <Paper elevation={0} sx={{ 
+                    p: 2, 
+                    background: 'rgba(255, 255, 255, 0.02)',
+                    backdropFilter: 'blur(20px)',
+                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    borderRadius: '12px',
+                    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
+                    '&:hover': {
+                      background: 'rgba(255, 255, 255, 0.04)',
+                      border: '1px solid rgba(255, 255, 255, 0.12)',
+                    }
+                  }}>
+                    <pre style={{ 
+                      margin: 0, 
+                      fontSize: '0.85rem',
+                      color: '#e2e8f0',
+                      fontFamily: '"Fira Code", "Consolas", monospace'
+                    }}>
                       {JSON.stringify(api.payload, null, 2)}
                     </pre>
                   </Paper>
@@ -255,7 +393,25 @@ GROQ_API_KEY=your_groq_api_key_here`,
           
           <Grid container spacing={3}>
             <Grid item xs={12} md={6}>
-              <Paper elevation={2} sx={{ p: 3, height: '100%' }}>
+              <Paper 
+                elevation={0} 
+                sx={{ 
+                  p: 3, 
+                  height: '100%',
+                  background: 'rgba(255, 255, 255, 0.02)',
+                  backdropFilter: 'blur(20px)',
+                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  borderRadius: '16px',
+                  boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    background: 'rgba(255, 255, 255, 0.04)',
+                    border: '1px solid rgba(255, 255, 255, 0.12)',
+                    transform: 'translateY(-2px)',
+                    boxShadow: '0 12px 48px rgba(0, 0, 0, 0.4)',
+                  }
+                }}
+              >
                 <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                   <PlayArrowIcon color="primary" sx={{ mr: 1 }} />
                   <Typography variant="h5">
@@ -295,7 +451,25 @@ GROQ_API_KEY=your_groq_api_key_here`,
             </Grid>
             
             <Grid item xs={12} md={6}>
-              <Paper elevation={2} sx={{ p: 3, height: '100%' }}>
+              <Paper 
+                elevation={0} 
+                sx={{ 
+                  p: 3, 
+                  height: '100%',
+                  background: 'rgba(255, 255, 255, 0.02)',
+                  backdropFilter: 'blur(20px)',
+                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  borderRadius: '16px',
+                  boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    background: 'rgba(255, 255, 255, 0.04)',
+                    border: '1px solid rgba(255, 255, 255, 0.12)',
+                    transform: 'translateY(-2px)',
+                    boxShadow: '0 12px 48px rgba(0, 0, 0, 0.4)',
+                  }
+                }}
+              >
                 <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                   <SecurityIcon color="primary" sx={{ mr: 1 }} />
                   <Typography variant="h5">
@@ -355,7 +529,26 @@ GROQ_API_KEY=your_groq_api_key_here`,
               }
             ].map((option, index) => (
               <Grid item xs={12} md={4} key={index}>
-                <Paper elevation={2} sx={{ p: 3, height: '100%', textAlign: 'center' }}>
+                <Paper 
+                  elevation={0} 
+                  sx={{ 
+                    p: 3, 
+                    height: '100%', 
+                    textAlign: 'center',
+                    background: 'rgba(255, 255, 255, 0.02)',
+                    backdropFilter: 'blur(20px)',
+                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    borderRadius: '16px',
+                    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      background: 'rgba(255, 255, 255, 0.04)',
+                      border: '1px solid rgba(255, 255, 255, 0.12)',
+                      transform: 'translateY(-2px)',
+                      boxShadow: '0 12px 48px rgba(0, 0, 0, 0.4)',
+                    }
+                  }}
+                >
                   <Box sx={{ mb: 2 }}>
                     {option.icon}
                   </Box>
