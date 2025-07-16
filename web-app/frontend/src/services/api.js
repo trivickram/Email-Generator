@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'https://email-generator-backend-3p8m.onrender.com/api';
+// Base URL for backend API; in development, default to localhost
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:4000/api';
 
 // Create axios instance
 const api = axios.create({

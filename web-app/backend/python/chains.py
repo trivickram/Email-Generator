@@ -8,8 +8,13 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(
 
 # Try to import required packages with error handling
 try:
-    from langchain_groq import ChatGroq
-    print("✅ langchain_groq imported successfully", file=sys.stderr)
+    from langchain_groq import ChatGroq as _ChatGroq
+    # Wrap ChatGroq to strip unsupported 'proxies' argument
+    class ChatGroq(_ChatGroq):
+        def __init__(self, *args, proxies=None, **kwargs):
+            # Accept and ignore 'proxies' parameter to match upstream signature
+            super().__init__(*args, **kwargs)
+    print("✅ langchain_groq imported successfully (patched)", file=sys.stderr)
 except ImportError as e:
     error_msg = {
         "success": False, 

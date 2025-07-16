@@ -1,5 +1,10 @@
 import os
-from langchain_groq import ChatGroq
+from langchain_groq import ChatGroq as _ChatGroq
+# Patch ChatGroq to ignore unsupported 'proxies' argument from environment
+class ChatGroq(_ChatGroq):
+    def __init__(self, *args, proxies=None, **kwargs):
+        # Accept and ignore 'proxies' parameter to match base signature
+        super().__init__(*args, **kwargs)
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
 from langchain_core.exceptions import OutputParserException

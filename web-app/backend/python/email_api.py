@@ -38,7 +38,8 @@ try:
     from chains import Chain
     from portfolio import Portfolio
     from utils import clean_text
-    from langchain_community.document_loaders import WebBaseLoader
+    import requests
+    from bs4 import BeautifulSoup
 except ImportError as e:
     error_result = {
         "success": False,
@@ -68,10 +69,13 @@ def generate_email(job_url):
         portfolio.load_portfolio()
         print("Loaded portfolio", file=sys.stderr)
         
-        # Scrape and clean job data
-        loader = WebBaseLoader([job_url])
-        raw_data = loader.load()[0].page_content
-        cleaned_data = clean_text(raw_data)
+        # Scrape and clean job data via HTTP request
+        resp = requests.get(job_url, timeout=10)
+        resp.raise_for_status()
+        # Extract visible text
+        soup = BeautifulSoup(resp.text, 'html.parser')
+        page_text = soup.get_text(separator=' ')
+        cleaned_data = clean_text(page_text)
         
         print("Scraped and cleaned job data", file=sys.stderr)
         

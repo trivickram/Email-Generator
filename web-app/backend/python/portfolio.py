@@ -1,4 +1,4 @@
-import pandas as pd
+import csv
 import uuid
 import time
 import logging
@@ -40,7 +40,12 @@ class Portfolio:
             # Default to the data directory
             file_path = os.path.join(os.path.dirname(__file__), 'my_portfolio.csv')
         self.file_path = file_path
-        self.data = pd.read_csv(file_path)
+        # Load CSV data without pandas to avoid C-extension builds
+        self.data = []
+        with open(file_path, newline='', encoding='utf-8') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                self.data.append(row)
         self.vectorstore_path = 'vectorstore'
         self.chromadb_available = CHROMADB_AVAILABLE
         

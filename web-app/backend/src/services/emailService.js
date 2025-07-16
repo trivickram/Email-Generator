@@ -4,9 +4,12 @@ const fs = require('fs');
 
 class EmailService {
   constructor() {
-    // Use virtual environment Python if available, otherwise fall back to system Python
+    // Use virtual environment Python if available, otherwise fall back
     const venvPython = path.join(__dirname, '..', '..', 'venv', 'bin', 'python');
     const venvPythonWin = path.join(__dirname, '..', '..', 'venv', 'Scripts', 'python.exe');
+    // Also check for .venv directory (common naming)
+    const venvDotPythonWin = path.join(__dirname, '..', '..', '.venv', 'Scripts', 'python.exe');
+    const venvDotPython = path.join(__dirname, '..', '..', '.venv', 'bin', 'python');
     
     if (fs.existsSync(venvPython)) {
       this.pythonPath = venvPython;
@@ -14,6 +17,12 @@ class EmailService {
     } else if (fs.existsSync(venvPythonWin)) {
       this.pythonPath = venvPythonWin;
       console.log('🐍 Using venv Python (Windows)');
+    } else if (fs.existsSync(venvDotPythonWin)) {
+      this.pythonPath = venvDotPythonWin;
+      console.log('🐍 Using .venv Python (Windows)');
+    } else if (fs.existsSync(venvDotPython)) {
+      this.pythonPath = venvDotPython;
+      console.log('🐍 Using .venv Python (Unix)');
     } else {
       this.pythonPath = process.env.PYTHON_PATH || (process.platform === 'win32' ? 'python' : 'python3');
       console.log('🐍 Using system Python');
