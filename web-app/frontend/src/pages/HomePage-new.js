@@ -139,12 +139,18 @@ const HomePage = () => {
   };
 
   return (
-    <Box sx={{ 
-      minHeight: '100vh',
-      background: '#000000',
-      position: 'relative',
-      overflow: 'hidden'
-    }}>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3 }}
+    >
+      <Box sx={{ 
+        minHeight: '100vh',
+        background: '#000000',
+        position: 'relative',
+        overflow: 'hidden'
+      }}>
       {/* Animated Background Elements */}
       <Box sx={{
         position: 'absolute',
@@ -390,9 +396,17 @@ const HomePage = () => {
           {/* Input Form */}
           <Grid item xs={12} lg={6}>
             <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
+              initial={{ opacity: 0, x: -80, scale: 0.95 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              transition={{ 
+                duration: 0.8, 
+                delay: 0.2,
+                ease: [0.25, 0.46, 0.45, 0.94]
+              }}
+              whileHover={{ 
+                scale: 1.02,
+                transition: { duration: 0.3 }
+              }}
             >
               <Box sx={{
                 background: 'rgba(255, 255, 255, 0.02)',
@@ -402,11 +416,11 @@ const HomePage = () => {
                 boxShadow: '0 32px 64px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08)',
                 position: 'relative',
                 overflow: 'hidden',
-                transition: 'all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+                transition: 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
                 '&:hover': {
                   background: 'rgba(255, 255, 255, 0.04)',
                   border: '0.5px solid rgba(255, 255, 255, 0.12)',
-                  transform: 'translateY(-8px)',
+                  transform: 'translateY(-12px)',
                   boxShadow: '0 48px 96px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.12)',
                 },
                 '&::before': {
@@ -417,6 +431,20 @@ const HomePage = () => {
                   right: 0,
                   height: '1px',
                   background: 'linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.5), transparent)',
+                },
+                '&::after': {
+                  content: '""',
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  background: 'linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.02) 50%, transparent 70%)',
+                  opacity: 0,
+                  transition: 'opacity 0.6s ease',
+                },
+                '&:hover::after': {
+                  opacity: 1,
                 },
               }}>
                 <Box sx={{ p: 6, position: 'relative', zIndex: 1 }}>
@@ -651,9 +679,17 @@ const HomePage = () => {
           {/* Results */}
           <Grid item xs={12} lg={6}>
             <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
+              initial={{ opacity: 0, x: 80, scale: 0.95 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              transition={{ 
+                duration: 0.8, 
+                delay: 0.4,
+                ease: [0.25, 0.46, 0.45, 0.94]
+              }}
+              whileHover={{ 
+                scale: 1.02,
+                transition: { duration: 0.3 }
+              }}
             >
               {result ? (
                 <Fade in={!!result}>
@@ -665,11 +701,11 @@ const HomePage = () => {
                     boxShadow: '0 32px 64px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08)',
                     position: 'relative',
                     overflow: 'hidden',
-                    transition: 'all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+                    transition: 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
                     '&:hover': {
                       background: 'rgba(255, 255, 255, 0.04)',
                       border: '0.5px solid rgba(255, 255, 255, 0.12)',
-                      transform: 'translateY(-8px)',
+                      transform: 'translateY(-12px)',
                       boxShadow: '0 48px 96px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.12)',
                     },
                     '&::before': {
@@ -679,7 +715,21 @@ const HomePage = () => {
                       left: 0,
                       right: 0,
                       height: '1px',
-                      background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent)',
+                      background: 'linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.5), transparent)',
+                    },
+                    '&::after': {
+                      content: '""',
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      background: 'linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.02) 50%, transparent 70%)',
+                      opacity: 0,
+                      transition: 'opacity 0.6s ease',
+                    },
+                    '&:hover::after': {
+                      opacity: 1,
                     },
                   }}>
                     <Box sx={{ p: 6, position: 'relative', zIndex: 1 }}>
@@ -950,11 +1000,12 @@ const HomePage = () => {
                   justifyContent: 'center',
                   position: 'relative',
                   overflow: 'hidden',
-                  transition: 'all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+                  transition: 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
                   '&:hover': {
                     border: '1px dashed rgba(255, 255, 255, 0.15)',
                     background: 'rgba(255, 255, 255, 0.025)',
-                    transform: 'translateY(-4px)',
+                    transform: 'translateY(-8px) scale(1.01)',
+                    boxShadow: '0 20px 40px rgba(0, 0, 0, 0.2)',
                   },
                   '&::before': {
                     content: '""',
@@ -963,12 +1014,14 @@ const HomePage = () => {
                     left: 0,
                     right: 0,
                     bottom: 0,
-                    background: 'linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.005) 50%, transparent 70%)',
-                    animation: 'shimmer 6s infinite',
+                    background: 'linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.008) 50%, transparent 70%)',
+                    backgroundSize: '200% 200%',
+                    animation: 'shimmerSlow 8s ease-in-out infinite',
                   },
-                  '@keyframes shimmer': {
-                    '0%': { transform: 'translateX(-100%)' },
-                    '100%': { transform: 'translateX(100%)' },
+                  '@keyframes shimmerSlow': {
+                    '0%': { backgroundPosition: '-200% -200%' },
+                    '50%': { backgroundPosition: '200% 200%' },
+                    '100%': { backgroundPosition: '-200% -200%' },
                   }
                 }}>
                   <Box sx={{ textAlign: 'center', p: 8, position: 'relative', zIndex: 1 }}>
@@ -1066,6 +1119,7 @@ const HomePage = () => {
         </Grid>
       </Container>
     </Box>
+    </motion.div>
   );
 };
 

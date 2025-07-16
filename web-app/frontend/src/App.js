@@ -1,11 +1,13 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import { CssBaseline, Box } from '@mui/material';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'react-hot-toast';
+import { AnimatePresence } from 'framer-motion';
 import theme from './theme';
 import Navbar from './components/Navbar';
+import PageTransition from './components/PageTransition';
 import HomePage from './pages/HomePage-new';
 import AboutPage from './components/AboutPage';
 import DocumentationPage from './components/DocumentationPage';
@@ -18,6 +20,32 @@ const queryClient = new QueryClient({
     },
   },
 });
+
+const AnimatedRoutes = () => {
+  const location = useLocation();
+  
+  return (
+    <AnimatePresence mode="wait" initial={false}>
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={
+          <PageTransition>
+            <HomePage />
+          </PageTransition>
+        } />
+        <Route path="/about" element={
+          <PageTransition>
+            <AboutPage />
+          </PageTransition>
+        } />
+        <Route path="/docs" element={
+          <PageTransition>
+            <DocumentationPage />
+          </PageTransition>
+        } />
+      </Routes>
+    </AnimatePresence>
+  );
+};
 
 function App() {
   return (
@@ -56,15 +84,16 @@ function App() {
             display: 'flex', 
             flexDirection: 'column', 
             minHeight: '100vh',
-            background: '#000000'
+            background: '#000000',
+            overflow: 'hidden' // Prevent scroll during transitions
           }}>
             <Navbar />
-            <Box component="main" sx={{ flexGrow: 1 }}>
-              <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/about" element={<AboutPage />} />
-                <Route path="/docs" element={<DocumentationPage />} />
-              </Routes>
+            <Box component="main" sx={{ 
+              flexGrow: 1,
+              position: 'relative',
+              overflow: 'hidden' // Smooth transitions
+            }}>
+              <AnimatedRoutes />
             </Box>
           </Box>
         </Router>
