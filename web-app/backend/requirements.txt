@@ -1,3 +1,10 @@
+# Core dependencies
+--index-url=https://pypi.org/simple
+setuptools>=65.5.1
+wheel>=0.40.0
+
+# Add your specific dependencies below
+# package_name==version
 langchain-groq==0.1.5
 langchain-core==0.1.52
 langchain-community==0.0.38
