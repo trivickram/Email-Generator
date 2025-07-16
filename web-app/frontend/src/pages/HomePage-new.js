@@ -233,31 +233,91 @@ const HomePage = () => {
               <Typography 
                 variant="h1" 
                 sx={{ 
-                  fontSize: { xs: '3rem', md: '5rem', lg: '6.5rem' },
-                  fontWeight: 600,
+                  fontSize: { xs: '3.5rem', md: '6rem', lg: '8rem' },
+                  fontWeight: 900, // Ultra-bold like Apple
                   color: 'white',
-                  mb: 3,
-                  background: 'linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.95) 30%, rgba(255, 255, 255, 0.85) 70%, #ffffff 100%)',
+                  mb: 4,
+                  background: `
+                    linear-gradient(180deg, 
+                      #ffffff 0%, 
+                      #e5e7eb 20%, 
+                      #d1d5db 40%, 
+                      #9ca3af 60%, 
+                      #6b7280 80%, 
+                      #4b5563 100%
+                    )
+                  `,
                   backgroundClip: 'text',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
-                  textShadow: '0 8px 32px rgba(255,255,255,0.1)',
-                  letterSpacing: { xs: '-0.02em', md: '-0.03em' },
-                  lineHeight: { xs: 1.1, md: 1.05 },
-                  fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif',
+                  letterSpacing: { xs: '-0.04em', md: '-0.06em' },
+                  lineHeight: { xs: 0.9, md: 0.85 },
+                  fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", system-ui, sans-serif',
+                  textTransform: 'none',
+                  position: 'relative',
+                  filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3))',
+                  // Apple's signature text shadow for depth
+                  textShadow: `
+                    0 1px 0 rgba(255, 255, 255, 0.4),
+                    0 2px 2px rgba(0, 0, 0, 0.2),
+                    0 4px 8px rgba(0, 0, 0, 0.1)
+                  `,
+                  // Titanium-like metallic effect
+                  '&::before': {
+                    content: '""',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    background: `
+                      linear-gradient(45deg, 
+                        transparent 30%, 
+                        rgba(255, 255, 255, 0.1) 50%, 
+                        transparent 70%
+                      )
+                    `,
+                    backgroundSize: '200% 100%',
+                    animation: 'shimmer 3s ease-in-out infinite',
+                    pointerEvents: 'none',
+                  },
+                  '@keyframes shimmer': {
+                    '0%': { backgroundPosition: '-200% 0' },
+                    '100%': { backgroundPosition: '200% 0' },
+                  },
                 }}
               >
-                AI Cold Email
+                <motion.span
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 1, delay: 0.6 }}
+                >
+                  AI Cold Email
+                </motion.span>
                 <Box component="span" sx={{ 
                   display: 'block',
-                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 50%, rgba(255, 255, 255, 0.85) 100%)',
+                  background: `
+                    linear-gradient(180deg, 
+                      rgba(255, 255, 255, 0.9) 0%, 
+                      rgba(229, 231, 235, 0.8) 30%, 
+                      rgba(156, 163, 175, 0.7) 70%, 
+                      rgba(107, 114, 128, 0.6) 100%
+                    )
+                  `,
                   backgroundClip: 'text',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
-                  fontWeight: 300,
+                  fontWeight: 200, // Thinner for "Generator" like Apple does
                   mt: 1,
+                  opacity: 0.85,
                 }}>
-                  Generator
+                  <motion.span
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, delay: 0.9 }}
+                  >
+                    Generator
+                  </motion.span>
                 </Box>
               </Typography>
             </motion.div>
