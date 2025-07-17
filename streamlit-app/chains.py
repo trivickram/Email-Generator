@@ -1,5 +1,11 @@
 import os
 import sys
+from pathlib import Path
+
+# Add parent directory to path and load environment variables
+parent_dir = Path(__file__).parent.parent
+sys.path.append(str(parent_dir))
+
 from langchain_groq import ChatGroq
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
@@ -7,8 +13,19 @@ from langchain_core.exceptions import OutputParserException
 from dotenv import load_dotenv
 import logging
 
-# Load environment variables
-load_dotenv()
+# Load environment variables from current directory first, then parent
+current_env = Path(".env")
+parent_env_path = parent_dir / ".env"
+
+# Try to load from current directory first
+if current_env.exists():
+    load_dotenv(dotenv_path=current_env)
+    logging.info(f"Loaded .env from: {current_env.absolute()}")
+
+# Then load from parent directory (this will override if variables exist)
+if parent_env_path.exists():
+    load_dotenv(dotenv_path=parent_env_path, override=True)
+    logging.info(f"Loaded .env from: {parent_env_path.absolute()}")
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -25,7 +42,9 @@ class Chain:
         
         # First try environment variables (.env file)
         groq_api_key = os.getenv("GROQ_API_KEY")
-        if groq_api_key:
+        logging.info(f"Debug: Working directory: {os.getcwd()}")
+        logging.info(f"Debug: Full API key from environment: '{groq_api_key}'")
+        if groq_api_key and groq_api_key.strip() != "your_api_key_here":
             logging.info("Using API key from environment variables")
         else:
             # Fallback to Streamlit secrets
