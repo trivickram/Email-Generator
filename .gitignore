@@ -82,6 +82,9 @@ shared/__pycache__/
 streamlit-app/__pycache__/
 streamlit-app/vectorstore/
 
+# Streamlit secrets (contains API keys)
+.streamlit/secrets.toml
+
 # Development containers (if needed in future)
 .devcontainer/
 .DS_Store

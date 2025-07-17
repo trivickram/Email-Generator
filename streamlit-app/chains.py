@@ -20,14 +20,20 @@ class Chain:
         logging.info("🔧 Initializing Chain class...")
         # Initialize the LLM with the required API key
         
-        # Try to get API key from Streamlit secrets first, then environment
+        # Try to get API key from environment variables first, then Streamlit secrets
         groq_api_key = None
-        try:
-            groq_api_key = st.secrets["GROQ_API_KEY"]
-            logging.info("Using API key from Streamlit secrets")
-        except:
-            groq_api_key = os.getenv("GROQ_API_KEY")
+        
+        # First try environment variables (.env file)
+        groq_api_key = os.getenv("GROQ_API_KEY")
+        if groq_api_key:
             logging.info("Using API key from environment variables")
+        else:
+            # Fallback to Streamlit secrets
+            try:
+                groq_api_key = st.secrets["GROQ_API_KEY"]
+                logging.info("Using API key from Streamlit secrets")
+            except:
+                logging.warning("No API key found in Streamlit secrets")
             
         if not groq_api_key or groq_api_key.strip() == "":
             logging.critical("GROQ_API_KEY is not set. Please add it to your environment variables or Streamlit secrets.")
