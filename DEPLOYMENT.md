@@ -40,9 +40,13 @@
 
 1. **Go to [Render Dashboard](https://render.com/dashboard)**
 2. **Create Web Service**:
-   - Connect GitHub: `trivickram/Email-Generator`
-   - Root Directory: `web-app/backend`
-   - Runtime: Node
+   - Connect GitHub: `trivickram/Email-Generator-new`
+   - **IMPORTANT**: Use the render.yaml file at the repository root
+   - OR manually configure:
+     - Root Directory: `web-app/backend`
+     - Runtime: Node
+     - Build Command: `npm install && python3 -m pip install -r requirements.txt`
+     - Start Command: `node server.js`
 
 3. **Environment Variables** (CRITICAL):
    ```
@@ -55,8 +59,8 @@
    ```
 
 4. **Build Settings**:
-   - Build Command: (use render.yaml)
-   - Start Command: `node server.js`
+   - **Option A**: Use render.yaml from repository root (RECOMMENDED)
+   - **Option B**: Manual configuration with root directory set to `web-app/backend`
 
 ### Expected Result:
 - Backend URL: `https://your-backend-app.onrender.com`
@@ -101,17 +105,34 @@ curl -X POST \
 
 ### Common Issues:
 
-1. **CORS Error**:
+1. **"Cannot find module 'express'" Error**:
+   - **Cause**: Render is not finding dependencies due to incorrect root directory
+   - **Solution**: 
+     - Use the render.yaml file from repository root (recommended)
+     - OR set Root Directory to `web-app/backend` in Render dashboard
+     - OR redeploy with correct build configuration
+
+2. **CORS Error**:
    - Check FRONTEND_URL in Render
    - Verify allowedOrigins in server.js
 
-2. **Python/Groq Issues**:
+3. **Python/Groq Issues**:
    - Verify GROQ_API_KEY is set
    - Check Python requirements.txt
 
-3. **Build Failures**:
+4. **Build Failures**:
    - Check build logs in Render/Vercel
    - Verify dependencies in package.json
+
+### Quick Fix for Current Error:
+
+If you're seeing the "Cannot find module 'express'" error:
+
+1. **Delete current Render service**
+2. **Create new service using render.yaml**:
+   - Upload the render.yaml from repository root
+   - This ensures proper directory structure
+3. **Set environment variables** as specified above
 
 ### Logs:
 - **Render**: Dashboard → Service → Logs
