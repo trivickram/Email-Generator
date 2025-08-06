@@ -21,6 +21,6 @@
     }
   ],
   "env": {
-    "REACT_APP_API_URL": "https://your-backend-app.onrender.com/api"
+    "REACT_APP_API_URL": "https://email-generator-f2a9.onrender.com/api"
   }
 }

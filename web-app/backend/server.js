@@ -28,8 +28,8 @@ const allowedOrigins = [
   'http://localhost:3000',
   'http://localhost:3001', // Add port 3001 for frontend
   'http://localhost:4000', // Add backend port for testing
+  'https://email-generator-8pvm.vercel.app', // Your actual Vercel URL
   'https://email-generator-sigma-mauve.vercel.app',
-  'https://your-frontend.vercel.app', // Update this with your actual Vercel URL
   process.env.FRONTEND_URL
 ].filter(Boolean); // Remove any undefined values
 
