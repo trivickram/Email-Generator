@@ -19,7 +19,7 @@ This happens because Render is not properly finding the `package.json` and depen
 
 2. **Create New Service with render.yaml**:
    - Click "New" → "Web Service"
-   - Connect GitHub: `trivickram/Email-Generator-new`
+   - Connect GitHub: `trivickram/Email-Generator`
    - **IMPORTANT**: When prompted, select "Use existing render.yaml file"
    - The render.yaml at repository root will handle everything correctly
 
@@ -38,7 +38,7 @@ This happens because Render is not properly finding the `package.json` and depen
 If you prefer manual setup:
 
 1. **Create New Web Service**:
-   - Connect GitHub: `trivickram/Email-Generator-new`
+   - Connect GitHub: `trivickram/Email-Generator`
    - **Root Directory**: `web-app/backend`
    - Runtime: Node
 

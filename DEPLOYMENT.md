@@ -40,7 +40,7 @@
 
 1. **Go to [Render Dashboard](https://render.com/dashboard)**
 2. **Create Web Service**:
-   - Connect GitHub: `trivickram/Email-Generator-new`
+   - Connect GitHub: `trivickram/Email-Generator`
    - **IMPORTANT**: Use the render.yaml file at the repository root
    - OR manually configure:
      - Root Directory: `web-app/backend`
