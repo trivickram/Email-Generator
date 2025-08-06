@@ -10,4 +10,4 @@ beautifulsoup4==4.12.3
 # AI integration libraries
 langchain-groq==0.1.5
 langchain-core==0.1.52
-groq==0.8.0
+groq==0.31.0
