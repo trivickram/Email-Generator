@@ -4,14 +4,7 @@ services:
     type: web
     runtime: node
     plan: free
-    buildCommand: |
-      echo "🔧 Building Cold Email Generator Backend..." &&
-      cd web-app/backend &&
-      npm install &&
-      echo "📦 Installing Python dependencies..." &&
-      python3 -m pip install --upgrade pip &&
-      python3 -m pip install -r requirements.txt &&
-      echo "✅ Build completed successfully"
+    buildCommand: cd web-app/backend && npm install && python3 -m pip install --upgrade pip && python3 -m pip install -r requirements.txt
     startCommand: cd web-app/backend && node server.js
     envVars:
       - key: NODE_ENV
