@@ -1,26 +1,28 @@
 version: 1
-# Updated: 2025-07-16 - Fix Python syntax and model issues
 services:
   - name: email-generator-backend
     type: web
     runtime: node
     plan: free
     buildCommand: |
-      echo "🔥 Force rebuild - Python syntax fix and model update" &&
-      chmod +x ./build.sh && ./build.sh &&
-      python3 -m venv venv &&
-      source venv/bin/activate &&
-      pip install --upgrade pip &&
-      pip install -r requirements.txt &&
-      echo "✅ Python environment ready"
+      echo "� Building Cold Email Generator Backend..." &&
+      npm install &&
+      echo "📦 Installing Python dependencies..." &&
+      python3 -m pip install --upgrade pip &&
+      python3 -m pip install -r requirements.txt &&
+      echo "✅ Build completed successfully"
     startCommand: node server.js
     envVars:
       - key: NODE_ENV
         value: production
+      - key: PORT
+        value: 10000
       - key: PYTHONPATH
-        value: ./python:./venv/lib/python3.*/site-packages
+        value: ./python
+      - key: PYTHON_PATH
+        value: python3
       - key: GROQ_API_KEY
         sync: false  # Set this in Render dashboard
+      - key: FRONTEND_URL
+        value: https://your-frontend.vercel.app
     healthCheckPath: /api/health
-    domains:
-      - email-generator-backend-3p8m.onrender.com
