@@ -20,7 +20,9 @@
       "dest": "/index.html"
     }
   ],
-  "env": {
-    "REACT_APP_API_URL": "https://email-generator-f2a9.onrender.com/api"
+  "build": {
+    "env": {
+      "REACT_APP_API_URL": "https://email-generator-f2a9.onrender.com/api"
+    }
   }
 }
