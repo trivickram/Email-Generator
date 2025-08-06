@@ -1,7 +1,12 @@
 import axios from 'axios';
 
 // Base URL for backend API; in development, default to localhost
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:4000/api';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000/api';
+
+// Debug logging
+console.log('🌍 Environment:', process.env.NODE_ENV);
+console.log('🔗 API Base URL:', API_BASE_URL);
+console.log('🔧 REACT_APP_API_URL:', process.env.REACT_APP_API_URL);
 
 // Create axios instance
 const api = axios.create({
