@@ -1,0 +1,6 @@
+langchain
+groq
+beautifulsoup4
+requests
+chromadb
+python-dotenv

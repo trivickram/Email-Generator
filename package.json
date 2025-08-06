@@ -1,0 +1,23 @@
+
+{
+  "name": "ai-cold-email-generator",
+  "version": "1.0.0",
+  "description": "AI Cold Email Generator - Full Stack Application",
+  "main": "web-app/backend/server.js",
+  "scripts": {
+    "start": "cd web-app/backend && npm start",
+    "build": "cd web-app/frontend && npm install && npm run build",
+    "install-deps": "cd web-app/backend && npm install && cd ../frontend && npm install",
+    "dev": "cd web-app/frontend && npm start"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/trivickram/Email-Generator.git"
+  },
+  "author": "trivickram",
+  "license": "MIT"
+}

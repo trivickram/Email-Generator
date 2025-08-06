@@ -1,0 +1,26 @@
+version: 1
+# Updated: 2025-07-16 - Fix Python syntax and model issues
+services:
+  - name: email-generator-backend
+    type: web
+    runtime: node
+    plan: free
+    buildCommand: |
+      echo "🔥 Force rebuild - Python syntax fix and model update" &&
+      chmod +x ./build.sh && ./build.sh &&
+      python3 -m venv venv &&
+      source venv/bin/activate &&
+      pip install --upgrade pip &&
+      pip install -r requirements.txt &&
+      echo "✅ Python environment ready"
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PYTHONPATH
+        value: ./python:./venv/lib/python3.*/site-packages
+      - key: GROQ_API_KEY
+        sync: false  # Set this in Render dashboard
+    healthCheckPath: /api/health
+    domains:
+      - email-generator-backend-3p8m.onrender.com

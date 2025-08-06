@@ -1,0 +1,13 @@
+# Core dependencies
+setuptools>=65.5.1
+wheel>=0.40.0
+
+# Pure-Python dependencies only
+python-dotenv==1.0.1
+requests==2.31.0
+beautifulsoup4==4.12.3
+
+# AI integration libraries
+langchain-groq==0.1.5
+langchain-core==0.1.52
+groq==0.8.0

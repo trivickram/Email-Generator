@@ -1,0 +1,104 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Cleanup patterns
+**/quick_test.py
+**/verify_*.py
+**/*_old.*
+**/*_new.*
+**/temp_*
+**/tmp_*
+
+# Node.js
+node_modules/
+*/node_modules/
+**/node_modules/
+web-app/frontend/node_modules/
+web-app/backend/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+.pnp
+.pnp.js
+
+# Build outputs
+web-app/frontend/build/
+web-app/backend/dist/
+build/
+dist/
+
+# Cache directories
+.cache/
+*/.cache/
+**/.cache/
+.eslintcache
+.parcel-cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Environment variables
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Database files
+*.sqlite3
+*.db
+
+# Vector store data
+vectorstore/
+chroma.sqlite3
+
+# IDE
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Project specific
+data/temp/
+shared/__pycache__/
+streamlit-app/__pycache__/
+streamlit-app/vectorstore/
+
+# Streamlit secrets (contains API keys)
+.streamlit/secrets.toml
+
+# Development containers (if needed in future)
+.devcontainer/
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# ChromaDB specific
+__pycache__/chromadb/
+.chroma/
+chroma_cache/
+
+# Temporary files
+*.tmp
+*.temp
+.vercel
