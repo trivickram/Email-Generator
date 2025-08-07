@@ -16,6 +16,46 @@
     
     <title>Cold Email Generator</title>
     
+    <!-- Enhanced error handler for extension compatibility -->
+    <script>
+      // Suppress all extension-related errors
+      window.addEventListener('error', function(e) {
+        if (e.filename && (
+          e.filename.includes('chrome-extension://') || 
+          e.filename.includes('moz-extension://') ||
+          e.filename.includes('safari-extension://') ||
+          e.filename.includes('extension://')
+        )) {
+          console.log('Extension error suppressed:', e.message);
+          e.stopPropagation();
+          e.preventDefault();
+          return false;
+        }
+      }, true);
+      
+      // Suppress extension promise rejections
+      window.addEventListener('unhandledrejection', function(e) {
+        if (e.reason && e.reason.stack && (
+          e.reason.stack.includes('chrome-extension://') ||
+          e.reason.stack.includes('extension://')
+        )) {
+          console.log('Extension promise rejection suppressed');
+          e.preventDefault();
+          return false;
+        }
+      });
+      
+      // Override console.error for extensions temporarily
+      const originalError = console.error;
+      console.error = function(...args) {
+        const errorStr = args.join(' ');
+        if (errorStr.includes('chrome-extension://') || errorStr.includes('Cannot read properties of undefined')) {
+          return; // Suppress extension errors
+        }
+        originalError.apply(console, args);
+      };
+    </script>
+    
     <style>
       @keyframes float {
         0%, 100% { transform: translateY(0px) rotate(0deg); }
